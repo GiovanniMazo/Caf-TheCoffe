@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Contact.css';
 
 const Contact = () => {
   const [email, setEmail] = useState('');
@@ -31,26 +32,41 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-container">
-      <h2>Contacto</h2>
-      {success && <p>Mensaje enviado con éxito!</p>}
-      {error && <p className="error">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Tu email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <textarea
-          placeholder="Tu mensaje"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          required
-        />
-        <button type="submit">Enviar</button>
-      </form>
+    <div className="contact-page">
+      <div className="contact-page__hero">
+        <h1>Contacto</h1>
+        <p>¿Tienes preguntas? Escríbenos</p>
+      </div>
+      <div className="contact-page__content">
+        <div className="contact-container">
+          {success && <p className="contact-success">✅ Mensaje enviado con éxito!</p>}
+          {error && <p className="contact-error">{error}</p>}
+          <form onSubmit={handleSubmit} className="contact-form">
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Tu email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="message">Mensaje</label>
+              <textarea
+                id="message"
+                placeholder="Tu mensaje"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit" className="contact-btn">Enviar Mensaje</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

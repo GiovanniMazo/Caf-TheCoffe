@@ -15,7 +15,7 @@ class ErrorBoundary extends React.Component {
       error: error,
       errorInfo: errorInfo
     });
-    // Aquí podrías enviar el error a un servicio de logging
+    // Para enviar errores a un servicio de logging externo
     console.error('Error capturado:', error, errorInfo);
   }
 

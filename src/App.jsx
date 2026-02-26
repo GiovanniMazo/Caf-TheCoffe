@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
-import ErrorBoundary from './components/ErrorBoundary';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -25,12 +24,12 @@ const MainContent = () => {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/sobre-mi" element={<AboutPage />} />
+          <Route path="/contacto" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/recipes" element={<Recipes />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/recetas" element={<Recipes />} />
+          <Route path="/productos" element={<Products />} />
+          <Route path="/carrito" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </main>

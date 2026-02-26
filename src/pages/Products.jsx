@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
+import { useCart } from '../context/CartContext';
 import './Products.css';
 
 const Products = () => {
   const [viewMode, setViewMode] = useState('grid');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [sortBy, setSortBy] = useState('name');
-  const [cart, setCart] = useState([]);
+  const [sortBy, setSortBy] = useState('all');
   const [isCartVisible, setIsCartVisible] = useState(false);
 
+  const { addToCart } = useCart();
+
   // ✅ Agregar producto al carrito
-  const addToCart = (product) => {
-    setCart((prev) => [...prev, product]);
+  const handleAddToCart = (product) => {
+    addToCart(product);
     setIsCartVisible(true);
     setTimeout(() => setIsCartVisible(false), 2000);
   };
@@ -94,7 +96,7 @@ const Products = () => {
             <ProductCard
               key={product.id}
               product={product}
-              onAddToCart={addToCart} // ✅ Se pasa al componente hijo
+              onAddToCart={handleAddToCart}
             />
           ))}
         </div>

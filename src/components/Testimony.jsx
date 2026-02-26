@@ -9,7 +9,7 @@ const Testimony = () => {
       review: "Cafe echo tradicionalmente.",
       image: "./imagenes/Foto Henry.jpg"
     },
-    // Add more testimonies as needed
+    // Testimonios adicionales sepueden añadidr aquí
   ];
 
   return (

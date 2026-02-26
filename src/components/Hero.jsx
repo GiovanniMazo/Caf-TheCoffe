@@ -4,7 +4,7 @@ import './Hero.css';
 
 const Hero = () => {
   const bannerUrl = '/images/banner.jpg';
-  const overlay = 'linear-gradient(rgba(44,24,16,0.5), rgba(44,24,16,0.5))';
+  const overlay = 'linear-gradient(rgba(44,24,16,0.65), rgba(44,24,16,0.65))';
 
   return (
     <section
@@ -14,26 +14,32 @@ const Hero = () => {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center center',
         backgroundSize: 'cover',
-        backgroundAttachment: 'fixed', // 💫 efecto parallax
+        backgroundAttachment: 'fixed',
       }}
     >
       <div className="hero__container container">
         <h1 className="hero__title animate-fade-up">
-          Descubre nuevos sabores <br /> y aromas cada mañana
+          Café premium 100% colombiano
         </h1>
 
         <p className="hero__paragraph animate-fade-up delay-1">
-          Elige ser feliz tomando café ☕
+          Descubre sabores únicos y aromas irresistibles en cada taza ☕
         </p>
 
         <div className="hero__buttons animate-fade-up delay-2">
-          <Link to="/products" className="cta cta--primary">
-            Ver productos
+          <Link to="/productos" className="cta cta--primary">
+            Ordenar ahora
           </Link>
           <a href="#about" className="cta cta--secondary">
             Conócenos
           </a>
         </div>
+      </div>
+
+      {/* Indicador de scroll lateral, discreto */}
+      <div className="hero__scroll-side">
+        <div className="hero__scroll-icon"></div>
+        <span>Desliza</span>
       </div>
     </section>
   );

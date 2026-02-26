@@ -4,26 +4,39 @@
 
 main {
   width: 100%;
+  padding-top: 70px; /* Space for fixed header */
 }
 
-/* Pages other than home need padding for fixed header */
-.page-content {
-  padding-top: 80px;
-}
-
-/* Home page doesn't need extra padding due to hero design */
-.home-page .page-content {
+/* Home page special handling - hero has its own padding */
+.home-page main {
   padding-top: 0;
 }
 
-/* Asegurarnos que el contenido es interactivo */
+/* Ensure content is interactive and below header */
 main, 
 .hero,
 .about-section,
 .contact-section,
 .blog-section,
 .recipes-section,
-.checkout-section {
+.checkout-section,
+.products-page,
+.about-page {
   position: relative;
-  z-index: 2; /* Mayor que el header para asegurar la interactividad */
+  z-index: 2;
+}
+
+/* Trust section spacing */
+.trust-section {
+  margin-top: 0;
+}
+
+/* Section spacing with header offset */
+.section {
+  padding-top: 2rem;
+}
+
+/* Footer at bottom */
+.footer {
+  margin-top: auto;
 }

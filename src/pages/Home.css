@@ -1,34 +1,137 @@
+/* Home Page */
+.home-page {
+  background-color: #fdf9f4;
+}
+
+/* Trust Section */
+.trust-section {
+  background: linear-gradient(135deg, #2c1810 0%, #3d2317 100%);
+  padding: 40px 20px;
+  margin-top: -2px;
+}
+
+.trust-section__container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #f5e9d4;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.trust-item__icon {
+  font-size: 1.8rem;
+}
+
+.trust-item__text {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Section Styles */
 .section {
   padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #2c1810;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+/* About Section */
+.about {
   text-align: center;
   background-color: #fdf9f4;
 }
 
-.subtitle {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #2c1810;
-  margin-bottom: 20px;
-}
-
 .about__paragraph {
+  text-align: center;
   max-width: 700px;
   margin: 0 auto 40px;
-  font-size: 1.1rem;
-  color: #5a4636;
+  font-size: 1.15rem;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* Price Section */
+.price {
+  background-color: #f5ebe0;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.price__more {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.price__more .subtitle {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
 }
 
 .cta--more {
   display: inline-block;
-  padding: 12px 24px;
-  background-color: #c7974f;
-  color: white;
+  background: #c7974f;
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 30px;
   font-weight: 600;
-  border-radius: 25px;
-  transition: all 0.3s ease;
   text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 .cta--more:hover {
-  background-color: #b1843f;
+  background: #b1843f;
+  transform: translateY(-3px);
+}
+
+/* Products Preview */
+.products-preview {
+  background-color: #fdf9f4;
+  text-align: center;
+}
+
+/* Testimony */
+.testimony {
+  background-color: #f5ebe0;
+  padding: 80px 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .trust-section__container {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .trust-item {
+    font-size: 0.95rem;
+  }
+
+  .section {
+    padding: 60px 20px;
+  }
+
+  .subtitle {
+    font-size: 1.8rem;
+  }
+
+  .about__paragraph {
+    font-size: 1rem;
+  }
 }

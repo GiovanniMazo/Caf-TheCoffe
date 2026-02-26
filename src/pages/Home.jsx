@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import AboutCard from '../components/AboutCard';
 import PriceCard from '../components/PriceCard';
 import Testimony from '../components/Testimony';
 import ProductList from '../components/ProductList';
+import './Home.css';
 
 const Home = () => {
   return (
@@ -11,6 +13,28 @@ const Home = () => {
 
       {/* 🟤 HERO PRINCIPAL */}
       <Hero />
+
+      {/* 🟤 SECCIÓN DE CONFIANZA */}
+      <section className="trust-section">
+        <div className="trust-section__container container">
+          <div className="trust-section__items">
+            <div className="trust-section__item">
+              <span className="trust-section__icon">☕</span>
+              <span className="trust-section__text">Café artesanal</span>
+            </div>
+            <div className="trust-section__divider">|</div>
+            <div className="trust-section__item">
+              <span className="trust-section__icon">🚚</span>
+              <span className="trust-section__text">Envíos nacionales</span>
+            </div>
+            <div className="trust-section__divider">|</div>
+            <div className="trust-section__item">
+              <span className="trust-section__icon">⭐</span>
+              <span className="trust-section__text">Clientes satisfechos</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* 🟤 SECCIÓN ABOUT */}
       <section id="about" className="about section">
@@ -28,9 +52,9 @@ const Home = () => {
 
         <div className="price__more">
           <h3 className="subtitle">¿Quieres conocer más cafés?</h3>
-          <a href="/products" className="cta cta--more">
+          <Link to="/productos" className="cta cta--more">
             Nuestros cafés ☕
-          </a>
+          </Link>
         </div>
       </section>
 

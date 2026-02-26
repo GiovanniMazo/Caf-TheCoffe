@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { brand } from "../brand";
+import { FaCoffee, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 import "./Header.css";
 
 export default function Header() {
@@ -25,17 +25,19 @@ export default function Header() {
       <nav className="nav">
         <div className="nav__left">
           <Link to="/" className="nav__logo" onClick={closeMenu}>
-            <span className="nav__logo-icon">☕</span>
-            <h1 className="nav__title">The Coffee Club</h1>
+            <span className="nav__logo-icon">
+              <FaCoffee />
+            </span>
+            <h1 className="nav__title">Gio - The Coffee Club</h1>
           </Link>
         </div>
 
         <button
           className={`nav__toggle ${isMenuOpen ? "active" : ""}`}
           onClick={toggleMenu}
-          aria-label="Abrir menú"
+          aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
         >
-          <span className="nav__toggle-icon"></span>
+          {isMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
 
         <ul className={`nav__menu ${isMenuOpen ? "active" : ""}`}>
@@ -48,7 +50,8 @@ export default function Header() {
 
           <li>
             <NavLink to="/carrito" className="nav__link nav__link--cart" onClick={closeMenu}>
-              🛒 {items.length > 0 && <span className="cart-badge">{items.length}</span>}
+              <FaShoppingCart className="cart-icon" />
+              {items.length > 0 && <span className="cart-badge">{items.length}</span>}
             </NavLink>
           </li>
 

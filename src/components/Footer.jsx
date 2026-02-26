@@ -19,7 +19,7 @@ const Footer = () => {
       <div className="container footer__content">
         <div className="footer__left">
           <h2 className="footer__title">The Coffee Club</h2>
-          <p>Sabores premium directos a tu taza.</p>
+          <p>Café artesanala by Gio.</p>
           <div className="social-links">
             <a href="https://wa.me/3249184892" className="social-icon" aria-label="WhatsApp" target="_blank" rel="noreferrer"><FaWhatsapp /></a>
             <a href="https://t.me/thecoffeeclub" className="social-icon" aria-label="Telegram" target="_blank" rel="noreferrer"><FaTelegram /></a>
@@ -49,7 +49,7 @@ const Footer = () => {
 
       <div className="footer__bottom">
         <div className="container">
-          <p>© {new Date().getFullYear()} The Coffee Club. Todos los derechos reservados.</p>
+          <p>© {new Date().getFullYear()} Gio Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
