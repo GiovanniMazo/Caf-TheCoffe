@@ -5,7 +5,7 @@ import AboutCard from '../components/AboutCard';
 import PriceCard from '../components/PriceCard';
 import Testimony from '../components/Testimony';
 import ProductList from '../components/ProductList';
-import './Home.css';
+import '../styles/pages/Home.css';
 
 const Home = () => {
   return (

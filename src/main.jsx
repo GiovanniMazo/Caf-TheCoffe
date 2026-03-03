@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.css';
+import './styles/index.css';
 import './styles/main.css';
-import './styles/cart.css';
+import './styles/components/Cart.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

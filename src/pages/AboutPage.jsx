@@ -1,6 +1,6 @@
 import React from 'react';
 import AboutCard from '../components/AboutCard';
-import './AboutPage.css';
+import '../styles/pages/AboutPage.css';
 
 const AboutPage = () => {
   return (

@@ -3,28 +3,61 @@
   background-color: #fdf9f4;
 }
 
-/* Trust Section */
+/* Trust Section - Mejorado */
 .trust-section {
-  background: linear-gradient(135deg, #2c1810 0%, #3d2317 100%);
-  padding: 40px 20px;
+  background: linear-gradient(135deg, #fdf9f4 0%, #f5ebe0 100%);
+  padding: 25px 20px;
   margin-top: -2px;
+  border-bottom: 1px solid rgba(199, 151, 79, 0.2);
 }
 
 .trust-section__container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 30px;
 }
 
+.trust-section__items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.trust-section__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #5a4a3a;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.trust-section__icon {
+  font-size: 1.5rem;
+}
+
+.trust-section__text {
+  color: #4a3a2a;
+}
+
+.trust-section__divider {
+  color: #c7974f;
+  font-weight: 300;
+  opacity: 0.6;
+}
+
+/* Legacy support */
 .trust-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #f5e9d4;
+  color: #5a4a3a;
   font-size: 1.05rem;
   font-weight: 500;
 }
@@ -34,7 +67,7 @@
 }
 
 .trust-item__text {
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  color: #4a3a2a;
 }
 
 /* Section Styles */
@@ -116,10 +149,19 @@
 @media (max-width: 768px) {
   .trust-section__container {
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
   }
 
-  .trust-item {
+  .trust-section__items {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .trust-section__divider {
+    display: none;
+  }
+
+  .trust-section__item {
     font-size: 0.95rem;
   }
 

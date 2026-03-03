@@ -12,8 +12,8 @@ import Checkout from './pages/Checkout';
 import Recipes from './pages/Recipes';
 import Products from './pages/Products';
 import Cart from './components/Cart';
-import './index.css';
-import './App.css';
+import './styles/index.css';
+import './styles/App.css';
 
 const MainContent = () => {
   const location = useLocation();
@@ -37,14 +37,22 @@ const MainContent = () => {
   );
 };
 
+const AppContent = () => {
+  const location = useLocation();
+  
+  return (
+    <CartProvider>
+      <Header currentPath={location.pathname} />
+      <MainContent />
+      <Footer />
+    </CartProvider>
+  );
+};
+
 const App = () => {
   return (
     <Router>
-      <CartProvider>
-        <Header />
-        <MainContent />
-        <Footer />
-      </CartProvider>
+      <AppContent />
     </Router>
   );
 };

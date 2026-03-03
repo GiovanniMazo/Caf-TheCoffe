@@ -2,14 +2,21 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { FaCoffee, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
-import "./Header.css";
+import "../styles/components/Header.css";
 
-export default function Header() {
+export default function Header({ currentPath = "/" }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const { state } = useCart();
-  const items = state?.items || [];
+  const { items } = useCart();
+
+  // Determinar el tipo de página para aplicar estilos diferentes
+  const isHomePage = currentPath === "/";
+  const isProductsPage = currentPath === "/productos";
+  const isAboutPage = currentPath === "/sobre-mi";
+  const isContactPage = currentPath === "/contacto";
+  const isBlogPage = currentPath === "/blog";
+  const isRecipesPage = currentPath === "/recetas";
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -20,8 +27,20 @@ export default function Header() {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
+  // Construir clases dinámicas
+  const headerClasses = [
+    "header",
+    isScrolled ? "header--scrolled" : "",
+    isHomePage ? "header--home" : "",
+    isProductsPage ? "header--products" : "",
+    isAboutPage ? "header--about" : "",
+    isContactPage ? "header--contact" : "",
+    isBlogPage ? "header--blog" : "",
+    isRecipesPage ? "header--recipes" : "",
+  ].filter(Boolean).join(" ");
+
   return (
-    <header className={`header ${isScrolled ? "header--scrolled" : ""}`}>
+    <header className={headerClasses}>
       <nav className="nav">
         <div className="nav__left">
           <Link to="/" className="nav__logo" onClick={closeMenu}>

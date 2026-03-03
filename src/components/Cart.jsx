@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import { formatCurrency } from '../utils/formatCurrency';
-import './Cart.css';
+import '../styles/components/Cart.css';
 
 const Cart = () => {
   const { items, removeFromCart, clearCart, getCartTotal } = useCart();

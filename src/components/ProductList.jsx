@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ProductCard from './ProductCard';
+import { useCart } from '../context/CartContext';
 
 const products = [
   { id: 1, name: 'Café Colombiano Premium', description: 'Granos selectos de las montañas colombianas', price: 15.99, image: 'https://source.unsplash.com/800x600/?coffee,beans&sig=1' },
@@ -15,12 +16,12 @@ const products = [
 ];
 
 const ProductList = ({ viewMode = 'grid' }) => {
-  const [cart, setCart] = useState([]);
+  const { addToCart } = useCart();
   const [isCartVisible, setIsCartVisible] = useState(false);
 
-  const addToCart = (product) => {
-    setCart([...cart, product]);
-    // M animación
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    // Mostrar notificación
     setIsCartVisible(true);
     setTimeout(() => setIsCartVisible(false), 2000);
   };
@@ -34,7 +35,7 @@ const ProductList = ({ viewMode = 'grid' }) => {
             <ProductCard
               key={product.id}
               product={product}
-              onAddToCart={addToCart}
+              onAddToCart={handleAddToCart}
             />
           ))}
         </div>

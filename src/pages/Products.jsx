@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { useCart } from '../context/CartContext';
-import './Products.css';
+import '../styles/pages/Products.css';
 
 const Products = () => {
   const [viewMode, setViewMode] = useState('grid');
