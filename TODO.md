@@ -11,6 +11,9 @@
 - [x] 8. Actualizar importaciones en `App.jsx` y `main.jsx`
 - [x] 9. Eliminar archivos CSS originales
 - [x] 10. Verificar que la aplicación funcione correctamente
+- [x] 11. Corregir error de compilación con `index.css`
+- [x] 12. Restaurar imagen de fondo del Hero
+- [x] 13. Subir cambios a GitHub
 
 ## Estructura final:
 
@@ -49,3 +52,7 @@ src/
 │   └── Recipes.jsx
 ├── App.jsx
 └── main.jsx
+```
+
+## Commits realizados:
+- `855d0f5` - feat: reorganizar estructura de archivos CSS y corregir errores de compilación
