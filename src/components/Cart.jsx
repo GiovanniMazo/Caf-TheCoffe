@@ -1,10 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { formatCurrency } from '../utils/formatCurrency';
 import '../styles/components/Cart.css';
 
 const Cart = () => {
-  const { items, removeFromCart, clearCart, getCartTotal } = useCart();
+  const navigate = useNavigate();
+  const { items, removeFromCart, updateQuantity, clearCart, getCartTotal } = useCart();
+
+  const handleCheckout = () => {
+    navigate('/checkout');
+  };
 
   if (items.length === 0) {
     return (
@@ -29,7 +35,23 @@ const Cart = () => {
             <div className="cart-item__details">
               <h3 className="cart-item__name">{item.name}</h3>
               <p className="cart-item__price">{formatCurrency(item.price)}</p>
-              <p className="cart-item__quantity">Cantidad: {item.quantity}</p>
+              <div className="cart-item__quantity-controls">
+                <button 
+                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                  className="quantity-btn"
+                  aria-label="Decrease quantity"
+                >
+                  −
+                </button>
+                <span className="cart-item__quantity">{item.quantity}</span>
+                <button 
+                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                  className="quantity-btn"
+                  aria-label="Increase quantity"
+                >
+                  +
+                </button>
+              </div>
             </div>
             
             <div className="cart-item__total">
@@ -55,7 +77,7 @@ const Cart = () => {
           <span>Total:</span>
           <strong>{formatCurrency(getCartTotal())}</strong>
         </div>
-        <button className="cart__checkout">
+        <button onClick={handleCheckout} className="cart__checkout">
           Proceder al pago
         </button>
       </div>

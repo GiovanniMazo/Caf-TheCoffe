@@ -7,7 +7,7 @@ export const products = [
     description:
       "Granos selectos de las montañas colombianas, con cuerpo balanceado y notas dulces.",
     price: 57000,
-    image: "/images/products/CafeColombia.jpg", // ✅ Ruta directa a /public
+    image: "/images/CafeColombia.jpg",
     category: "granos",
     origin: "Colombia",
   },
@@ -17,7 +17,7 @@ export const products = [
     description:
       "Intenso y aromático, ideal para una taza de espresso perfecta.",
     price: 38000,
-    image: "/images/products/CafeItaliano.jpg",
+    image: "/images/CafeItaliano.jpg",
     category: "granos",
     origin: "Italia",
   },
@@ -27,8 +27,7 @@ export const products = [
     description:
       "Suave fusión tropical con notas de coco y vainilla natural.",
     price: 43000,
-    image:
-      "/images/products/manos-bronceadas-femeninas-sostiene-un-vaso-de-cafe-con-leche-de-coco.jpg",
+    image: "/images/manos-bronceadas-femeninas-sostiene-un-vaso-de-cafe-con-leche-de-coco.jpg",
     category: "especialidad",
     origin: "Brasil",
   },
@@ -38,7 +37,7 @@ export const products = [
     description:
       "Aromas a cacao con matices frutales, ideal para los amantes del café equilibrado.",
     price: 76100,
-    image: "/images/products/nathan-dumlao-dvuHNTJlxsg-unsplash.jpg",
+    image: "/images/nathan-dumlao-dvuHNTJxIsg-unsplash.jpg",
     category: "granos",
     origin: "Guatemala",
   },
@@ -48,7 +47,7 @@ export const products = [
     description:
       "Café robusto, terroso y con notas especiadas de la isla de Sumatra.",
     price: 32600,
-    image: "/images/products/nathan-dumlao-So7cyDtlmls-unsplash.jpg",
+    image: "/images/nathan-dumlao-So7cyDtlmls-unsplash.jpg",
     category: "granos",
     origin: "Indonesia",
   },
@@ -58,8 +57,7 @@ export const products = [
     description:
       "La combinación perfecta de espresso y leche espumosa.",
     price: 65200,
-    image:
-      "/images/products/primer-plano-de-cafe-capuchino-con-latte-de-arte-en-la-mesa-de-madera.jpg",
+    image: "/images/primer-plano-de-cafe-capuchino-con-latte-de-arte-en-la-mesa-de-madera.jpg",
     category: "bebida",
     origin: "Varios orígenes",
   },
@@ -69,7 +67,7 @@ export const products = [
     description:
       "Nuestra mezcla exclusiva, creada para quienes disfrutan cada sorbo.",
     price: 33000,
-    image: "/images/products/tabitha-turner-3n3mPoGko8g-unsplash.jpg",
+    image: "/images/tabitha-turner-3n3mPoGko8g-unsplash.jpg",
     category: "molido",
     origin: "Honduras",
   },

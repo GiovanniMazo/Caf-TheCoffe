@@ -55,10 +55,17 @@
   margin: 5px 0 0;
 }
 
-.cart-item__quantity {
+.cart-item__quantity-controls {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.cart-item__quantity {
+  font-weight: 500;
+  min-width: 25px;
+  text-align: center;
 }
 
 .quantity-btn {
