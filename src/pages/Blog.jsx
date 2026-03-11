@@ -21,7 +21,7 @@ const blogPosts = [
     title: 'Orígenes del café colombiano',
     excerpt: 'Conoce la historia y tradición del café colombiano de alta montaña.',
     date: '5 de Enero, 2025',
-    image: '/images/CafeColombia.jpg'
+    image: '/images/manos-bronceadas-femeninas-sostiene-un-vaso-de-cafe-con-leche-de-coco.jpg'
   }
 ];
 

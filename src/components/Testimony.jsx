@@ -9,21 +9,21 @@ const Testimony = () => {
       title: "Inicia con un buen sabor tu mañana",
       subtitle: "Hacienda la Monsalve",
       description: "Café echo tradicionalmente con los mejores granos de Colombia. Una experiencia única en cada taza.",
-      image: "/images/CafeColombia.jpg"
+      image: "/images/tabitha-turner-3n3mPoGko8g-unsplash.jpg"
     },
     {
       id: 2,
       title: "El aroma que define tu día",
       subtitle: "Café Especial",
       description: "Desde las montañas de Antioquia, trae la tradición del café colombiano premium.",
-      image: "/images/tabitha-turner-3n3mPoGko8g-unsplash.jpg"
+      image: "/images/nathan-dumlao-So7cyDtlmls-unsplash.jpg"
     },
     {
       id: 3,
       title: "Sabor intenso y auténtico",
       subtitle: "Espresso Italiano",
       description: "La receta tradicional italiana para los amantes del café intenso y aromático.",
-      image: "/images/CafeItaliano.jpg"
+      image: "/images/primer-plano-de-cafe-capuchino-con-latte-de-arte-en-la-mesa-de-madera.jpg"
     }
   ];
 

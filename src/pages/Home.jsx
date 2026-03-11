@@ -43,7 +43,13 @@ const Home = () => {
         <p className="about__paragraph">
           Existe gran variedad de tipos de café que aún no conoces y debes probar ahora mismo.
         </p>
-        <AboutCard />
+        <div className="about__card-container">
+          <AboutCard 
+            title="Café de Especialidad"
+            description="Seleccionamos los mejores granos de café de origen directo, garantizando una experiencia única en cada taza."
+            image="/images/nathan-dumlao-dvuHNTJxIsg-unsplash.jpg"
+          />
+        </div>
       </section>
 
       {/* 🟤 SECCIÓN DE PLAN / PROMOCIÓN */}

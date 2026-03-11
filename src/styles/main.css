@@ -1,4 +1,3 @@
-
 :root {
   --primary-color: #2c1810;
   --secondary-color: #c7974f;
@@ -7,7 +6,6 @@
   --black: #000000;
   --gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
 }
-
 
 * {
   margin: 0;
@@ -28,9 +26,7 @@ body {
   padding: 0 20px;
 }
 
-/* =========================================================
-   ✨ ANIMACIONES GLOBALES
-   ========================================================= */
+/* ANIMACIONES GLOBALES */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -41,9 +37,7 @@ body {
   to { transform: translateX(0); }
 }
 
-/* =========================================================
-   🏞️ HERO SECTION (BANNER PRINCIPAL)
-   ========================================================= */
+/* HERO SECTION (BANNER PRINCIPAL) */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -163,9 +157,7 @@ body {
   100% { opacity: 0; transform: translate(-50%, 20px); }
 }
 
-/* =========================================================
-   ☕ PRODUCTOS (SECCIÓN DE TARJETAS)
-   ========================================================= */
+/* PRODUCTOS (SECCIÓN DE TARJETAS) */
 .products-section {
   padding: 5rem 0;
   background: var(--white);
@@ -191,9 +183,7 @@ body {
   align-items: stretch;
 }
 
-/* =========================================================
-   💳 TARJETAS DE PRODUCTO
-   ========================================================= */
+/* TARJETAS DE PRODUCTO */
 .product-card {
   background: var(--white);
   border-radius: 10px;
@@ -278,9 +268,151 @@ body {
   font-weight: bold;
 }
 
-/* =========================================================
-   🛒 NOTIFICACIÓN DEL CARRITO
-   ========================================================= */
+/* ABOUT CARDS (Sección About en Home) */
+.about__icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.about__icons:hover {
+  transform: translateY(-5px);
+}
+
+.about__icon {
+  width: 100%;
+  max-width: 300px;
+  height: 200px !important;
+  object-fit: cover !important;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.about__title {
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.about__paragraph {
+  color: #666;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* PRICE CARD (Promoción en Home) */
+.price__card {
+  max-width: 450px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.price__card-header {
+  background: linear-gradient(135deg, #2c1810 0%, #4a3428 100%);
+  padding: 30px 25px;
+  text-align: center;
+  color: #fff;
+}
+
+.price__card-badge {
+  display: inline-block;
+  background: #c7974f;
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.price__card-title {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.price__card-description {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  color: #e0d5c7;
+}
+
+.price__card-body {
+  padding: 25px;
+}
+
+.price__card-image {
+  width: 100%;
+  height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.price__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.price__card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.price__card-origin {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.price__card-price {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.price__card-currency {
+  color: #c7974f;
+  font-size: 1rem;
+}
+
+.price__card-amount {
+  color: #2c1810;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.price__card-cta {
+  width: 100%;
+  padding: 15px;
+  background: #c7974f;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.price__card-cta:hover {
+  background: #b0843f;
+}
+
+/* NOTIFICACIÓN DEL CARRITO */
 .cart-notification {
   position: fixed;
   bottom: 2rem;
@@ -297,9 +429,7 @@ body {
   transform: translateX(0);
 }
 
-/* =========================================================
-   🔗 ICONOS DE REDES SOCIALES
-   ========================================================= */
+/* ICONOS DE REDES SOCIALES */
 .social-links {
   display: flex;
   gap: 1rem;
@@ -323,9 +453,7 @@ body {
   transform: translateY(-5px);
 }
 
-/* =========================================================
-   📱 RESPONSIVE
-   ========================================================= */
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .hero__title {
     font-size: 2.5rem;
@@ -338,4 +466,13 @@ body {
   .products-grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
+  
+  .about__icon {
+    height: 180px;
+  }
+  
+  .price__card-image {
+    height: 180px;
+  }
 }
+
