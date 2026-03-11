@@ -18,17 +18,17 @@ const AboutPage = () => {
           <AboutCard 
             title="Capuccino" 
             description="Es una bebida nacida en Italia, preparada con café expreso y leche montada con vapor para darle cremosidad."
-            image="./imagenes/vaso.svg"
+            image="/images/primer-plano-de-cafe-capuchino-con-latte-de-arte-en-la-mesa-de-madera.jpg"
           />
           <AboutCard 
             title="Mocacino" 
             description="Es una variante del café con leche. Lleva expreso, leche vaporizada y chocolate en jarabe o polvo."
-            image="./imagenes/coffe.svg"
+            image="/images/manos-bronceadas-femeninas-sostiene-un-vaso-de-cafe-con-leche-de-coco.jpg"
           />
           <AboutCard 
             title="Espresso" 
             description="Es un tipo de café negro fuerte que se forma cuando el agua caliente pasa a mucha presión a través del café molido."
-            image="./imagenes/vasito.svg"
+            image="/images/nathan-dumlao-So7cyDtlmls-unsplash.jpg"
           />
         </div>
       </div>
