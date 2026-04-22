@@ -1,11 +1,4 @@
-:root {
-  --primary-color: #2c1810;
-  --secondary-color: #c7974f;
-  --accent-color: #e6b17e;
-  --white: #ffffff;
-  --black: #000000;
-  --gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-}
+/* MERGED TO index.css - DEPRECATED */
 
 * {
   margin: 0;
@@ -38,20 +31,7 @@ body {
 }
 
 /* HERO SECTION (BANNER PRINCIPAL) */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  background: 
-    linear-gradient(rgba(44, 24, 16, 0.5), rgba(44, 24, 16, 0.5)),
-    url('/images/banner.jpg') no-repeat center/cover;
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-  animation: fadeIn 1s ease-out;
-}
+/* HERO STYLES MERGED TO components/Hero.css & index.css */
 
 .hero::before {
   content: "";

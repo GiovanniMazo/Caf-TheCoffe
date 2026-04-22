@@ -1,20 +1,54 @@
+/* === HERO BASE === */
 .hero {
   position: relative;
   width: 100%;
-  min-height: 45vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #fff;
-  background-color: #2c1810;
+  color: white;
   overflow: hidden;
-  font-family: 'Poppins', sans-serif;
-  margin-top: 70px;
 }
 
-/* === CONTENEDOR === */
+/* === TAMAÑOS === */
+
+/* HOME */
+.hero--large {
+  height: 90vh;
+  max-height: 700px;
+  min-height: 500px;
+}
+
+/* BLOG / INTERNAS */
+.hero--small {
+  height: 55vh;
+  max-height: 350px;
+  min-height: 280px;
+}
+
+/* === FONDO === */
+.hero {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* === OVERLAY PRO === */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.75),
+    rgba(44, 24, 16, 0.4),
+    rgba(0, 0, 0, 0.2)
+  );
+  z-index: 1;
+}
+
+/* === CONTENIDO === */
 .hero__container {
+  position: relative;
   z-index: 2;
   padding: 0 20px;
   max-width: 900px;
@@ -22,139 +56,36 @@
 
 /* === TEXTO === */
 .hero__title {
-  font-size: 3rem;
-  font-weight: 700;
-  line-height: 1.3;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
   margin-bottom: 1rem;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 5px 20px rgba(0,0,0,0.8);
 }
 
 .hero__paragraph {
-  font-size: 1.3rem;
-  font-weight: 400;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  margin-bottom: 1.5rem;
   color: #f5e9d4;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  margin-bottom: 2rem;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.7);
 }
 
-/* === BOTONES === */
-.hero__buttons {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
+/* TEXTO PARA HERO PEQUEÑO */
+.hero--small .hero__title {
+  font-size: 2rem;
 }
 
-.cta--primary {
-  background-color: #c7974f;
-  color: #fff;
-  padding: 16px 36px;
-  border-radius: 30px;
-  font-weight: 600;
-  font-size: 1.1rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(199, 151, 79, 0.4);
-}
-
-.cta--primary:hover {
-  background-color: #b1843f;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(199, 151, 79, 0.5);
-}
-
-.cta--secondary {
-  background: transparent;
-  color: #fff;
-  border: 2px solid #c7974f;
-  padding: 14px 30px;
-  border-radius: 30px;
-  font-weight: 600;
+.hero--small .hero__paragraph {
   font-size: 1rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
 }
 
-.cta--secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  transform: translateY(-3px);
-}
-
-/* === SCROLL INDICATOR === */
-.hero__scroll-side {
-  position: absolute;
-  bottom: 25px;
-  right: 40px;
-  text-align: center;
-  color: #f5e9d4;
-  font-size: 0.8rem;
-  opacity: 0.8;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.hero__scroll-icon {
-  width: 18px;
-  height: 28px;
-  border: 2px solid #c7974f;
-  border-radius: 10px;
-  margin-bottom: 5px;
-  position: relative;
-  opacity: 0.8;
-}
-
-.hero__scroll-icon::after {
-  content: '';
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
-  background: #c7974f;
-  border-radius: 50%;
-  animation: scrollDown 1.6s infinite;
-}
-
-/* === OVERLAY === */
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(44, 24, 16, 0.65), rgba(44, 24, 16, 0.65));
-  z-index: 1;
-}
-
-/* === ANIMACIONES === */
-@keyframes scrollDown {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  50% {
-    opacity: 0.6;
-    transform: translate(-50%, 8px);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-/* === APARICIÓN SUAVE === */
+/* === ANIMACIÓN === */
 .animate-fade-up {
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeUp 1s ease forwards;
+  animation: fadeUp 0.8s ease forwards;
 }
 
 .delay-1 { animation-delay: 0.3s; }
-.delay-2 { animation-delay: 0.6s; }
-.delay-3 { animation-delay: 0.9s; }
 
 @keyframes fadeUp {
   to {
@@ -165,26 +96,20 @@
 
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
-  .hero {
-    min-height: 40vh;
-    margin-top: 60px;
+  .hero--large {
+    height: 70vh;
+    min-height: 400px;
   }
-  
+
+  .hero--small {
+    height: 200px;
+  }
+
   .hero__title {
     font-size: 2rem;
   }
 
   .hero__paragraph {
     font-size: 1rem;
-  }
-
-  .hero__buttons {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .hero__scroll-side {
-    right: 20px;
-    bottom: 15px;
   }
 }

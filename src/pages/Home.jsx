@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
-import AboutCard from '../components/AboutCard';
 import PriceCard from '../components/PriceCard';
 import Testimony from '../components/Testimony';
 import ProductList from '../components/ProductList';
@@ -20,60 +18,43 @@ const Home = () => {
         <div className="trust-section__container container">
           <div className="trust-section__items">
             <div className="trust-section__item">
-              <span className="trust-section__icon">☕</span>
-              <span className="trust-section__text">Café artesanal</span>
+              <FaCoffee size={32} />
+              <span>Café artesanal 100% colombiano</span>
             </div>
-            <div className="trust-section__divider">|</div>
+            <div className="trust-section__divider">•</div>
             <div className="trust-section__item">
-              <span className="trust-section__icon">🚚</span>
-              <span className="trust-section__text">Envíos nacionales</span>
+              <FaShippingFast size={32} />
+              <span>Envíos a toda Colombia</span>
             </div>
-            <div className="trust-section__divider">|</div>
+            <div className="trust-section__divider">•</div>
             <div className="trust-section__item">
-              <span className="trust-section__icon">⭐</span>
-              <span className="trust-section__text">Clientes satisfechos</span>
+              <FaStar size={32} />
+              <span>Calidad garantizada</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 🟤 SECCIÓN ABOUT */}
-      <section id="about" className="about section">
-        <h2 className="subtitle">Qué quieres probar de nuevo</h2>
-        <p className="about__paragraph">
-          Existe gran variedad de tipos de café que aún no conoces y debes probar ahora mismo.
-        </p>
-        <div className="about__card-container">
-          <AboutCard 
-            title="Café de Especialidad"
-            description="Seleccionamos los mejores granos de café de origen directo, garantizando una experiencia única en cada taza."
-            image="/images/nathan-dumlao-dvuHNTJxIsg-unsplash.jpg"
-          />
+      {/* 🟤 PROMOCIÓN */}
+      <section className="promo-section">
+        <div className="container">
+          <PriceCard />
         </div>
       </section>
 
-      {/* 🟤 SECCIÓN DE PLAN / PROMOCIÓN */}
-      <section className="price section">
-        <h2 className="subtitle">El plan perfecto para un día frío ☕</h2>
-        <PriceCard />
-
-        <div className="price__more">
-          <h3 className="subtitle">¿Quieres conocer más cafés?</h3>
-          <Link to="/productos" className="cta cta--more">
-            Nuestros cafés ☕
-          </Link>
+      {/* 🟤 PRODUCTOS */}
+      <section className="products-section">
+        <div className="container">
+          <h2 className="section-title">Nuestros Productos</h2>
+          <ProductList limit={8} />
         </div>
-      </section>
-
-      {/* 🟤 LISTA DE PRODUCTOS */}
-      <section className="products-preview section">
-        <h2 className="subtitle">Conoce nuestros productos</h2>
-        <ProductList />
       </section>
 
       {/* 🟤 TESTIMONIOS */}
-      <section className="testimony section">
-        <Testimony />
+      <section className="testimonials-section">
+        <div className="container">
+          <Testimony />
+        </div>
       </section>
     </div>
   );

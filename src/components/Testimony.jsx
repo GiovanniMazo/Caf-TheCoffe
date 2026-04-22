@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+import { motion } from 'framer-motion';
+import '../styles/components/Testimony.css';
+
 const Testimony = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   
@@ -38,17 +41,26 @@ const Testimony = () => {
   const current = testimonies[currentIndex];
 
   return (
-    <section className="testimony">
+    <motion.section 
+      className="testimony"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+    >
       <div className="testimony__container">
-        <button 
+        <motion.button 
           className="testimony__arrow testimony__arrow--left" 
           onClick={prevTestimony}
           aria-label="Anterior"
+          whileHover={{ scale: 1.1 }}
         >
           ❮
-        </button>
+        </motion.button>
 
-        <div className="testimony__content">
+        <motion.div 
+          className="testimony__content"
+          animate={{ x: currentIndex * -10 }}
+        >
           <div className="testimony__image-wrapper">
             <img 
               src={current.image} 
@@ -65,25 +77,27 @@ const Testimony = () => {
             <p className="testimony__description">{current.description}</p>
             <div className="testimony__dots">
               {testimonies.map((_, index) => (
-                <span 
+                <motion.span 
                   key={index} 
                   className={`testimony__dot ${index === currentIndex ? 'active' : ''}`}
                   onClick={() => setCurrentIndex(index)}
+                  whileHover={{ scale: 1.3 }}
                 />
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <button 
+        <motion.button 
           className="testimony__arrow testimony__arrow--right" 
           onClick={nextTestimony}
           aria-label="Siguiente"
+          whileHover={{ scale: 1.1 }}
         >
           ❯
-        </button>
+        </motion.button>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -12,13 +12,14 @@ const ProductList = ({ viewMode = 'grid', limit = 4 }) => {
 
   const handleAddToCart = (product) => {
     addToCart(product);
-    // Mostrar notificación
     setIsCartVisible(true);
     setTimeout(() => setIsCartVisible(false), 2000);
   };
 
+
+
   return (
-    <section className="products-section" id="products">
+    <section className="products-section">
       <div className="container">
         <div className={viewMode === 'grid' ? 'products-grid' : 'products-list'}>
           {displayProducts.map(product => (

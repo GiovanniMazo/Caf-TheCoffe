@@ -1,313 +1,118 @@
-/* Home Page */
-.home-page {
-  background-color: #fdf9f4;
-}
+/* Home Page - Professional Clean Design */
 
-/* Trust Section - Mejorado */
+/* Trust Section */
 .trust-section {
-  background: linear-gradient(135deg, #fdf9f4 0%, #f5ebe0 100%);
-  padding: 25px 20px;
-  margin-top: -2px;
-  border-bottom: 1px solid rgba(199, 151, 79, 0.2);
+  padding: 60px 0;
+  background: white;
+  box-shadow: var(--shadow-sm);
 }
 
 .trust-section__container {
-  max-width: 1100px;
+  max-width: 1000px;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 30px;
 }
 
 .trust-section__items {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 25px;
+  gap: 60px;
   flex-wrap: wrap;
 }
 
 .trust-section__item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  color: #5a4a3a;
+  gap: 12px;
   font-size: 1rem;
   font-weight: 500;
+  color: var(--primary-color);
 }
 
-.trust-section__icon {
-  font-size: 1.5rem;
-}
-
-.trust-section__text {
-  color: #4a3a2a;
+.trust-section__item svg {
+  color: var(--secondary-color);
 }
 
 .trust-section__divider {
-  color: #c7974f;
-  font-weight: 300;
-  opacity: 0.6;
+  font-size: 1.5rem;
+  color: #ccc;
+  font-weight: bold;
 }
 
-/* Legacy support */
-.trust-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #5a4a3a;
-  font-size: 1.05rem;
-  font-weight: 500;
+/* Promo Section */
+.promo-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #fdf9f4 0%, #f8f5f1 100%);
 }
 
-.trust-item__icon {
-  font-size: 1.8rem;
+.promo-section .price__card {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-.trust-item__text {
-  color: #4a3a2a;
+/* Products Section */
+.products-section {
+  padding: 100px 0;
+  background: white;
 }
 
-/* Section Styles */
-.section {
-  padding: 80px 20px;
+.section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 60px;
+  font-weight: 700;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: var(--secondary-color);
+  margin: 20px auto 0;
+  border-radius: 2px;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #fdf9f4 0%, #f5ebe0 100%);
+}
+
+.testimonials-section .testimony {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.subtitle {
-  text-align: center;
-  font-size: 2.2rem;
-  color: #2c1810;
-  margin-bottom: 1rem;
-  font-weight: 700;
-}
-
-/* About Section */
-.about {
-  text-align: center;
-  background-color: #fdf9f4;
-}
-
-.about__paragraph {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto 40px;
-  font-size: 1.15rem;
-  color: #666;
-  line-height: 1.8;
-}
-
-/* About Card Container - Para mostrar en Home */
-.about__card-container {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* Price Section */
-.price {
-  background-color: #f5ebe0;
-  text-align: center;
-  padding: 80px 20px;
-}
-
-.price__more {
-  margin-top: 50px;
-  text-align: center;
-}
-
-.price__more .subtitle {
-  font-size: 1.8rem;
-  margin-bottom: 25px;
-}
-
-.cta--more {
-  display: inline-block;
-  background: #c7974f;
-  color: #fff;
-  padding: 14px 32px;
-  border-radius: 30px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.cta--more:hover {
-  background: #b1843f;
-  transform: translateY(-3px);
-}
-
-/* Products Preview */
-.products-preview {
-  background-color: #fdf9f4;
-  text-align: center;
-}
-
-/* Testimony */
-.testimony {
-  background-color: #f5ebe0;
-  padding: 80px 20px;
-}
-
-/* Testimony Styles */
-.testimony__container {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-.testimony__arrow {
-  background: #c7974f;
-  color: white;
-  border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.testimony__arrow:hover {
-  background: #b0843f;
-  transform: scale(1.1);
-}
-
-.testimony__content {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  flex: 1;
-}
-
-.testimony__image-wrapper {
-  flex: 0 0 300px;
-  height: 300px;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-
-.testimony__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.testimony__text-wrapper {
-  flex: 1;
-}
-
-.testimony__label {
-  color: #c7974f;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 0.85rem;
-  margin-bottom: 10px;
-}
-
-.testimony__title {
-  font-size: 2rem;
-  color: #2c1810;
-  margin-bottom: 10px;
-  line-height: 1.3;
-}
-
-.testimony__subtitle {
-  color: #c7974f;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-.testimony__description {
-  color: #666;
-  font-size: 1.05rem;
-  line-height: 1.7;
-}
-
-.testimony__dots {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.testimony__dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #ccc;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.testimony__dot.active {
-  background: #c7974f;
-  transform: scale(1.2);
-}
-
-.testimony__dot:hover {
-  background: #b0843f;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
-  .testimony__container {
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .testimony__content {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .testimony__image-wrapper {
-    flex: none;
-    width: 100%;
-    max-width: 300px;
-    height: 250px;
-  }
-  
-  .testimony__title {
-    font-size: 1.5rem;
-  }
-
-  .trust-section__container {
-    flex-direction: column;
-    gap: 20px;
-  }
-
   .trust-section__items {
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
+    text-align: center;
   }
 
-  .trust-section__divider {
-    display: none;
+  .trust-section {
+    padding: 40px 0;
   }
 
-  .trust-section__item {
-    font-size: 0.95rem;
+  .products-section, .testimonials-section {
+    padding: 60px 0;
   }
 
-  .section {
-    padding: 60px 20px;
+  .promo-section {
+    padding: 60px 0;
   }
+}
 
-  .subtitle {
-    font-size: 1.8rem;
-  }
+/* Smooth scroll sections */
+.home-page section {
+  scroll-margin-top: 100px;
+}
 
-  .about__paragraph {
-    font-size: 1rem;
-  }
+/* No overlaps - clean spacing */
+.home-page > * + * {
+  margin-top: clamp(40px, 8vw, 80px);
 }
