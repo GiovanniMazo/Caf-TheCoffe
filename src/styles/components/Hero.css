@@ -12,23 +12,23 @@
 
 /* === TAMAÑOS === */
 .hero--large {
-  height: 85vh;
-  max-height: 620px;
-  min-height: 450px;
+  height: 70vh;
+  max-height: 520px;
+  min-height: 380px;
 }
 
 .hero--medium {
-  height: 42vh;
-  max-height: 340px;
-  min-height: 260px;
-  padding-top: 70px;
+  height: 30vh;
+  max-height: 240px;
+  min-height: 190px;
+  padding-top: 60px;
 }
 
 .hero--small {
-  height: 28vh;
-  max-height: 220px;
-  min-height: 160px;
-  padding-top: 70px;
+  height: 24vh;
+  max-height: 180px;
+  min-height: 140px;
+  padding-top: 60px;
 }
 
 /* === FONDO === */
@@ -184,18 +184,20 @@
 
 /* TEXTO PARA HERO MEDIANO */
 .hero--medium .hero__title {
-  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  margin-bottom: 0.5rem;
 }
 
 .hero--medium .hero__paragraph {
-  font-size: clamp(0.95rem, 2vw, 1.15rem);
-  margin-bottom: 1rem;
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
+  margin-bottom: 0.5rem;
 }
 
 .hero--medium .hero__badge {
-  font-size: 0.75rem;
-  padding: 6px 16px;
-  margin-bottom: 12px;
+  font-size: 0.65rem;
+  padding: 4px 12px;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
 }
 
 /* TEXTO PARA HERO PEQUEÑO */
@@ -271,6 +273,10 @@
   display: block;
 }
 
+.hero--medium .hero__curve svg {
+  height: 36px;
+}
+
 .hero--small .hero__curve {
   display: none;
 }
@@ -278,19 +284,20 @@
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .hero--large {
-    height: 75vh;
-    min-height: 400px;
+    height: 65vh;
+    min-height: 320px;
   }
 
   .hero--medium {
-    height: 220px;
-    min-height: 200px;
-    padding-top: 60px;
+    height: 170px;
+    min-height: 150px;
+    padding-top: 50px;
   }
 
   .hero--small {
-    height: 200px;
-    min-height: 180px;
+    height: 150px;
+    min-height: 130px;
+    padding-top: 50px;
   }
 
   .hero__title {
