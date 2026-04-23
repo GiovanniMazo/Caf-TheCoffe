@@ -12,23 +12,23 @@
 
 /* === TAMAÑOS === */
 .hero--large {
-  height: 70vh;
-  max-height: 520px;
-  min-height: 380px;
+  height: 55vh;
+  max-height: 420px;
+  min-height: 300px;
 }
 
 .hero--medium {
-  height: 30vh;
-  max-height: 240px;
-  min-height: 190px;
-  padding-top: 60px;
+  height: 22vh;
+  max-height: 180px;
+  min-height: 140px;
+  padding-top: 50px;
 }
 
 .hero--small {
-  height: 24vh;
-  max-height: 180px;
-  min-height: 140px;
-  padding-top: 60px;
+  height: 18vh;
+  max-height: 150px;
+  min-height: 120px;
+  padding-top: 50px;
 }
 
 /* === FONDO === */
@@ -284,20 +284,20 @@
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .hero--large {
-    height: 65vh;
-    min-height: 320px;
+    height: 50vh;
+    min-height: 260px;
   }
 
   .hero--medium {
-    height: 170px;
-    min-height: 150px;
-    padding-top: 50px;
+    height: 140px;
+    min-height: 120px;
+    padding-top: 45px;
   }
 
   .hero--small {
-    height: 150px;
-    min-height: 130px;
-    padding-top: 50px;
+    height: 120px;
+    min-height: 100px;
+    padding-top: 45px;
   }
 
   .hero__title {
