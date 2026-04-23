@@ -31,12 +31,12 @@ const Blog = () => {
   return (
     <div className="blog-page">
 
-     <Hero 
-      title="Blog"
-      subtitle="Recetas, tips y secretos del café ☕"
-      imgUrl="/images/tabitha-turner-3n3mPoGko8g-unsplash.jpg"
-      size="small"
-        />
+      <Hero
+        title="Blog"
+        subtitle="Recetas, tips y secretos del café ☕"
+        imgUrl="/images/tabitha-turner-3n3mPoGko8g-unsplash.jpg"
+        size="medium"
+      />
       <div className="container">
 
         {/* CONTROLES */}

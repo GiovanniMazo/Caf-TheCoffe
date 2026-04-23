@@ -1,69 +1,142 @@
 /* About Page */
 .about-page {
-  padding-top: 90px;
   min-height: 100vh;
-  background-color: #fdf9f4;
-}
-
-.about-page__hero {
-  width: 100%;
-  height: 280px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  text-align: center;
-  padding: 0 1rem;
-  background: linear-gradient(rgba(44, 24, 16, 0.7), rgba(44, 24, 16, 0.7));
-  margin-bottom: 40px;
-}
-
-.about-page__hero h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-}
-
-.about-page__hero p {
-  font-size: 1.1rem;
-  color: #f5e9d4;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .about-page__content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px 60px;
+  padding: 0 20px 80px;
 }
 
-.about__main {
+.about-page__content .subtitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.about-page__content .about__paragraph {
+  text-align: center;
+  color: #fff;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 50px;
+  line-height: 1.6;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Coffee Types Grid */
+.coffee-types {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
-  margin-top: 40px;
+  align-items: stretch;
+}
+
+/* Coffee Type Card */
+.coffee-type-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(44, 24, 16, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.coffee-type-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(44, 24, 16, 0.18);
+}
+
+.coffee-type-card__image {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.coffee-type-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.coffee-type-card:hover .coffee-type-card__image img {
+  transform: scale(1.1);
+}
+
+.coffee-type-card__number {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #2c1810;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 50px;
+  letter-spacing: 1px;
+}
+
+.coffee-type-card__content {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.coffee-type-card__title {
+  font-size: 1.4rem;
+  color: #2c1810;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.coffee-type-card__description {
+  color: #6b5b4f;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.coffee-type-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #c7974f;
+  border: 2px solid #c7974f;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: fit-content;
+}
+
+.coffee-type-card__btn:hover {
+  background: #c7974f;
+  color: white;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .about-page {
-    padding-top: 70px;
-  }
-
-  .about-page__hero {
-    height: 220px;
-  }
-
-  .about-page__hero h1 {
-    font-size: 2rem;
-  }
-
   .about-page__content {
     padding: 0 15px 40px;
   }
 
-  .about__main {
+  .coffee-types {
     grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .coffee-type-card__image {
+    height: 200px;
   }
 }

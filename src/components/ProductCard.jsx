@@ -1,5 +1,6 @@
 import React from 'react';
 import { formatCurrency } from '../utils/formatCurrency';
+import StarRating from './StarRating';
 import '../styles/components/ProductCard.css';
 
 const ProductCard = ({ product, onAddToCart }) => {
@@ -7,6 +8,9 @@ const ProductCard = ({ product, onAddToCart }) => {
     <div className="product-card">
       <div className="product-card__image-container">
         <img src={product.image} alt={product.name} className="product-card__image" />
+        {product.bestseller && (
+          <span className="product-card__badge">Más vendido</span>
+        )}
         <div className="product-card__overlay">
           <button 
             className="product-card__button"
@@ -18,6 +22,7 @@ const ProductCard = ({ product, onAddToCart }) => {
       </div>
       <div className="product-card__content">
         <h3 className="product-card__title">{product.name}</h3>
+        <StarRating rating={product.rating || 0} reviewCount={product.reviewCount || 0} />
         <p className="product-card__description">{product.description}</p>
         <span className="product-card__price">{formatCurrency(product.price)}</span>
       </div>

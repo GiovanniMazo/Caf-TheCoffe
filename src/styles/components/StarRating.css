@@ -1,0 +1,39 @@
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.star-rating__stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star-icon {
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+
+.star-icon--full {
+  color: #ffc107;
+}
+
+.star-icon--half {
+  color: #ffc107;
+}
+
+.star-icon--empty {
+  color: #d4d4d4;
+}
+
+.star-rating__count {
+  font-size: 0.75rem;
+  color: #888;
+  font-weight: 500;
+}
+
+.product-card:hover .star-icon {
+  transform: scale(1.15);
+}
+

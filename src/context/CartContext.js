@@ -7,12 +7,36 @@ import {
   clearCart as dbClearCart,
   createOrder as dbCreateOrder
 } from '../services/db';
+import { registerUser as apiRegisterUser, loginUser as apiLoginUser } from '../services/api';
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [items, setItems] = useState([]);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // Load user from localStorage
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch (error) {
+        console.error('Error loading user:', error);
+        localStorage.removeItem('user');
+      }
+    }
+  }, []);
+
+  // Persist user to localStorage
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user');
+    }
+  }, [user]);
 
   useEffect(() => {
     const loadCart = async () => {
@@ -31,10 +55,8 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (product) => {
     try {
-      // Check if product already exists in cart
       const existingItem = items.find(item => item.productId === product.id);
       if (existingItem) {
-        // Update quantity if already exists
         await dbRemoveFromCart(existingItem.id);
         const updatedProduct = { ...product, quantity: existingItem.quantity + 1 };
         await dbAddToCart(updatedProduct);
@@ -92,10 +114,38 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const registerUser = async (userData) => {
+    try {
+      const response = await apiRegisterUser(userData);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const loginUser = async (credentials) => {
+    try {
+      const response = await apiLoginUser(credentials);
+      const loggedUser = response.user;
+      setUser(loggedUser);
+      return loggedUser;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const logoutUser = () => {
+    setUser(null);
+  };
+
   const createOrder = async (orderData) => {
     try {
-      const order = await dbCreateOrder({
+      const orderWithUser = {
         ...orderData,
+        ...(user && { userId: user.id })
+      };
+      const order = await dbCreateOrder({
+        ...orderWithUser,
         items: items,
         total: getCartTotal()
       });
@@ -116,10 +166,14 @@ export const CartProvider = ({ children }) => {
 
   const value = {
     items,
+    user,
     addToCart,
     removeFromCart,
     updateQuantity,
     clearCart,
+    registerUser,
+    loginUser,
+    logoutUser,
     createOrder,
     getCartTotal,
     getItemCount,
@@ -140,3 +194,4 @@ export const useCart = () => {
   }
   return context;
 };
+

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useNewsletter from '../hooks/useNewsletter';
 import { FaWhatsapp, FaTelegram, FaEnvelope } from 'react-icons/fa';
+import '../styles/components/Footer.css';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ const Footer = () => {
       <div className="container footer__content">
         <div className="footer__left">
           <h2 className="footer__title">The Coffee Club</h2>
-          <p>Café artesanala by Gio.</p>
+          <p>Café artesanal Gio.</p>
           <div className="social-links">
             <a href="https://wa.me/3249184892" className="social-icon" aria-label="WhatsApp" target="_blank" rel="noreferrer"><FaWhatsapp /></a>
             <a href="https://t.me/thecoffeeclub" className="social-icon" aria-label="Telegram" target="_blank" rel="noreferrer"><FaTelegram /></a>

@@ -1,8 +1,6 @@
 /* Recipes Page */
 .recipes-page {
-  padding-top: 90px;
   min-height: 100vh;
-  background-color: #fdf9f4;
 }
 
 .recipes-page__hero {
@@ -22,6 +20,7 @@
 .recipes-page__hero h1 {
   font-size: 2.8rem;
   font-weight: 700;
+  color: #fff;
   margin-bottom: 10px;
   text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
 }

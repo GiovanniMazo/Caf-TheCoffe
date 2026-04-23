@@ -1,23 +1,50 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/components/Hero.css';
 
-const Hero = ({ title = "The Coffee Club", subtitle = "Café premium colombiano ☕", imgUrl = '/images/banner.jpg' }) => (
-  <section
-    className="hero"
-    style={{
-      backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${imgUrl})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center center',
-      backgroundSize: 'cover',
-      backgroundAttachment: 'fixed',
-    }}
-  >
-    <div className="hero__container container">
-      <h1 className="hero__title animate-fade-up">{title}</h1>
-      <p className="hero__paragraph animate-fade-up delay-1">{subtitle}</p>
-    </div>
-  </section>
-);
+const Hero = ({
+  title = "The Coffee Club",
+  subtitle = "Café premium colombiano ☕",
+  imgUrl = '/images/banner.jpg',
+  size = "large"
+}) => {
+  return (
+    <section className={`hero hero--${size}`}>
+      <div className="hero__bg" style={{ backgroundImage: `url(${imgUrl})` }} />
+      <div className="hero__overlay" />
+
+      {/* Decorative floating particles */}
+      <div className="hero__particle p1" />
+      <div className="hero__particle p2" />
+      <div className="hero__particle p3" />
+      <div className="hero__particle p4" />
+      <div className="hero__particle p5" />
+
+      <div className="hero__container container">
+        <span className="hero__badge">100% Colombiano</span>
+        <h1 className="hero__title">{title}</h1>
+        <p className="hero__paragraph">{subtitle}</p>
+        {size === 'large' && (
+          <div className="hero__actions">
+            <Link to="/productos" className="hero__cta hero__cta--primary">
+              Explorar productos
+            </Link>
+            <Link to="/sobre-mi" className="hero__cta hero__cta--secondary">
+              Conocer más
+            </Link>
+          </div>
+        )}
+      </div>
+
+      {/* Curved bottom edge */}
+      <div className="hero__curve">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#fdf9f4"/>
+        </svg>
+      </div>
+    </section>
+  );
+};
 
 export default Hero;
 

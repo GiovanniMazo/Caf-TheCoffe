@@ -1,8 +1,6 @@
 /* Contact Page */
 .contact-page {
-  padding-top: 90px;
   min-height: 100vh;
-  background-color: #fdf9f4;
 }
 
 .contact-page__hero {
@@ -22,6 +20,7 @@
 .contact-page__hero h1 {
   font-size: 2.8rem;
   font-weight: 700;
+  color: #fff;
   margin-bottom: 10px;
   text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
 }
@@ -121,10 +120,6 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .contact-page {
-    padding-top: 70px;
-  }
-
   .contact-page__hero {
     height: 220px;
   }

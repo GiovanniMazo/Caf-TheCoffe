@@ -10,6 +10,9 @@ export const products = [
     image: "/images/CafeColombia.jpg",
     category: "granos",
     origin: "Colombia",
+    rating: 4.8,
+    reviewCount: 124,
+    bestseller: true,
   },
   {
     id: 2,
@@ -20,6 +23,9 @@ export const products = [
     image: "/images/CafeItaliano.jpg",
     category: "granos",
     origin: "Italia",
+    rating: 4.5,
+    reviewCount: 89,
+    bestseller: false,
   },
   {
     id: 3,
@@ -30,6 +36,9 @@ export const products = [
     image: "/images/manos-bronceadas-femeninas-sostiene-un-vaso-de-cafe-con-leche-de-coco.jpg",
     category: "especialidad",
     origin: "Brasil",
+    rating: 4.9,
+    reviewCount: 215,
+    bestseller: true,
   },
   {
     id: 4,
@@ -40,6 +49,9 @@ export const products = [
     image: "/images/nathan-dumlao-dvuHNTJxIsg-unsplash.jpg",
     category: "granos",
     origin: "Guatemala",
+    rating: 4.6,
+    reviewCount: 67,
+    bestseller: false,
   },
   {
     id: 5,
@@ -50,6 +62,9 @@ export const products = [
     image: "/images/nathan-dumlao-So7cyDtlmls-unsplash.jpg",
     category: "granos",
     origin: "Indonesia",
+    rating: 4.3,
+    reviewCount: 54,
+    bestseller: false,
   },
   {
     id: 6,
@@ -60,6 +75,9 @@ export const products = [
     image: "/images/primer-plano-de-cafe-capuchino-con-latte-de-arte-en-la-mesa-de-madera.jpg",
     category: "bebida",
     origin: "Varios orígenes",
+    rating: 4.7,
+    reviewCount: 156,
+    bestseller: true,
   },
   {
     id: 7,
@@ -70,5 +88,8 @@ export const products = [
     image: "/images/tabitha-turner-3n3mPoGko8g-unsplash.jpg",
     category: "molido",
     origin: "Honduras",
+    rating: 4.4,
+    reviewCount: 43,
+    bestseller: false,
   },
 ];

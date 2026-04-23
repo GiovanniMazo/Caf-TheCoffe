@@ -89,13 +89,24 @@ router.post('/login', async (req, res) => {
 
   try {
     const pool = await getPool();
+    
+    // Verificar si el email existe
+    const emailCheck = await pool.request()
+      .input('email', email)
+      .query('SELECT id FROM dbo.Usuarios WHERE email = @email');
+    
+    if (emailCheck.recordset.length === 0) {
+      return res.status(401).json({ error: 'Este email no está registrado. Por favor crea una cuenta primero.' });
+    }
+    
+    // Verificar credenciales
     const result = await pool.request()
       .input('email', email)
       .input('password', password)
       .query('SELECT id, nombre, email, telefono, direccion, rol FROM dbo.Usuarios WHERE email = @email AND password = @password');
     
     if (result.recordset.length === 0) {
-      return res.status(401).json({ error: 'Credenciales incorrectas' });
+      return res.status(401).json({ error: 'Contraseña incorrecta' });
     }
     
     const user = result.recordset[0];

@@ -3,7 +3,7 @@ import { getPool } from '../database.js';
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  const { cliente, total } = req.body;
+  const { cliente, total, userId } = req.body;
   if (!cliente || !total) {
     return res.status(400).json({ error: 'Faltan datos de la orden' });
   }
@@ -13,7 +13,11 @@ router.post('/', async (req, res) => {
     await pool.request()
       .input('cliente', cliente)
       .input('total', total)
-      .query('INSERT INTO dbo.Ordenes (cliente, total) VALUES (@cliente, @total)');
+      .input('userId', userId || null)
+      .query(`
+        INSERT INTO dbo.Ordenes (cliente, total, userId) 
+        VALUES (@cliente, @total, @userId)
+      `);
     
     res.json({ mensaje: '✅ Orden registrada correctamente' });
   } catch (error) {
@@ -23,3 +27,4 @@ router.post('/', async (req, res) => {
 });
 
 export default router;
+

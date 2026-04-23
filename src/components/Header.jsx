@@ -8,7 +8,17 @@ export default function Header({ currentPath = "/" }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const { items } = useCart();
+  const { items, getItemCount } = useCart();
+  const [cartBounce, setCartBounce] = useState(false);
+  const itemCount = getItemCount();
+
+  useEffect(() => {
+    if (itemCount > 0) {
+      setCartBounce(true);
+      const timer = setTimeout(() => setCartBounce(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [itemCount]);
 
   // Determinar el tipo de página para aplicar estilos diferentes
   const isHomePage = currentPath === "/";
@@ -46,8 +56,11 @@ export default function Header({ currentPath = "/" }) {
           <Link to="/" className="nav__logo" onClick={closeMenu}>
             <span className="nav__logo-icon">
               <FaCoffee />
+              <span className="steam steam-1"></span>
+              <span className="steam steam-2"></span>
+              <span className="steam steam-3"></span>
             </span>
-            <h1 className="nav__title">Gio - The Coffee Club</h1>
+            <h1 className="nav__title">Coffe Club</h1>
           </Link>
         </div>
 
@@ -68,9 +81,9 @@ export default function Header({ currentPath = "/" }) {
           <li><NavLink to="/recetas" className="nav__link" onClick={closeMenu}>Recetas</NavLink></li>
 
           <li>
-            <NavLink to="/carrito" className="nav__link nav__link--cart" onClick={closeMenu}>
+            <NavLink to="/carrito" className={`nav__link nav__link--cart ${cartBounce ? 'cart-bounce' : ''}`} onClick={closeMenu}>
               <FaShoppingCart className="cart-icon" />
-              {items.length > 0 && <span className="cart-badge">{items.length}</span>}
+              {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
             </NavLink>
           </li>
 
