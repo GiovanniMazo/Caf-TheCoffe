@@ -10,34 +10,149 @@
   transform: translateY(-5px);
 }
 
-.blog-card img {
+.blog-card__image {
+  position: relative;
+}
+
+.blog-card__image img {
   width: 100%;
   height: 200px;
   object-fit: cover;
 }
 
-.blog-card-content {
+/* Badges */
+.badge {
+  position: absolute;
+  top: 10px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge--featured {
+  left: 10px;
+  background: #c89b3c;
+  color: #fff;
+}
+
+.badge--mostread {
+  right: 10px;
+  background: #2c1810;
+  color: #fff;
+}
+
+/* Content */
+.blog-card__content {
   padding: 20px;
 }
 
-.blog-card h3 {
+.blog-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 10px;
+  font-size: 0.8rem;
+  color: #888;
 }
 
-.blog-card p {
+.blog-card__meta .category {
+  background: #f0e6d8;
+  color: #2c1810;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.blog-card__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #2c1810;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.blog-card__excerpt {
   font-size: 0.9rem;
   color: #666;
+  line-height: 1.5;
+  margin-bottom: 0;
 }
 
-/* LEER MÁS */
-.blog-card a {
-  display: inline-block;
-  margin-top: 10px;
-  color: #2c1810;
-  font-weight: 600;
+/* Footer con botones centrados */
+.blog-card__footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+/* Botones CTA específicos para BlogCard - más profesionales y compactos */
+.blog-card__footer .cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  border-radius: 20px;
   text-decoration: none;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  min-width: 120px;
 }
 
-.blog-card a:hover {
-  color: #c89b3c;
+.blog-card__footer .cta--primary {
+  background-color: #c89b3c;
+  color: #fff;
+  border-color: #c89b3c;
 }
+
+.blog-card__footer .cta--primary:hover {
+  background-color: transparent;
+  color: #c89b3c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(200, 155, 60, 0.25);
+}
+
+.blog-card__footer .cta--secondary {
+  background-color: transparent;
+  color: #2c1810;
+  border-color: #2c1810;
+}
+
+.blog-card__footer .cta--secondary:hover {
+  background-color: #2c1810;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(44, 24, 16, 0.2);
+}
+
+/* Autor */
+.blog-card__author {
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: #999;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .blog-card__footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .blog-card__footer .cta {
+    width: 100%;
+    max-width: 200px;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+}
+

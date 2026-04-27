@@ -8,7 +8,7 @@ export default function Header({ currentPath = "/" }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const { items, getItemCount } = useCart();
+  const { getItemCount } = useCart();
   const [cartBounce, setCartBounce] = useState(false);
   const itemCount = getItemCount();
 

@@ -94,7 +94,6 @@ export default function Checkout() {
       setOrderSuccess(true);
       clearCart();
     } catch (error) {
-      console.error("Error creating order:", error);
       alert("Hubo un error al procesar tu pedido. Por favor intenta de nuevo.");
     } finally {
       setIsSubmitting(false);

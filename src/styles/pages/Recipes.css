@@ -5,7 +5,7 @@
 
 .recipes-page__hero {
   width: 100%;
-  height: 280px;
+  height: 180px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -132,7 +132,7 @@
   }
 
   .recipes-page__hero {
-    height: 220px;
+    height: 160px;
   }
 
   .recipes-page__hero h1 {
@@ -143,3 +143,4 @@
     grid-template-columns: 1fr;
   }
 }
+

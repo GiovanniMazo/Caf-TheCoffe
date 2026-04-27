@@ -85,9 +85,9 @@ export const blogPosts = [
   },
   {
     id: 7,
-    title: "El ritual matutino del café colombiano",
+    title: "Café y estilo de vida: rutinas de mañana",
     excerpt: "Tostado artesanal, tueste medio y agua filtrada para empezar el día con excelencia.",
-    image: "/images/products-hero.jpg",
+    image: "/images/manos-bronceadas-femeninas-sostiene-un-vaso-de-cafe-con-leche-de-coco.jpg",
     category: "estilo-vida",
     date: "2024-09-05",
     readTime: "3 min",

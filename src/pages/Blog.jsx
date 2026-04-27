@@ -10,11 +10,17 @@ const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [viewMode, setViewMode] = useState('grid');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const categories = ['all', ...new Set(blogPosts.map(post => post.category))];
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value.toLowerCase());
+  };
+
+  const handleSelectCategory = (cat) => {
+    setSelectedCategory(cat);
+    setDropdownOpen(false);
   };
 
   const filteredPosts = blogPosts
@@ -50,17 +56,31 @@ const Blog = () => {
             className="search-input"
           />
 
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="filter-select"
-          >
-            {categories.map(cat => (
-              <option key={cat} value={cat}>
-                {cat === 'all' ? 'Todas' : cat}
-              </option>
-            ))}
-          </select>
+          {/* DROPDOWN PERSONALIZADO */}
+          <div className="custom-dropdown">
+            <button
+              className="custom-dropdown__trigger"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              {selectedCategory === 'all' ? 'Todas' : selectedCategory}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            {dropdownOpen && (
+              <ul className="custom-dropdown__menu">
+                {categories.map(cat => (
+                  <li
+                    key={cat}
+                    className={`custom-dropdown__item ${selectedCategory === cat ? 'active' : ''}`}
+                    onClick={() => handleSelectCategory(cat)}
+                  >
+                    {cat === 'all' ? 'Todas' : cat}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
           <div className="view-toggle">
             <button

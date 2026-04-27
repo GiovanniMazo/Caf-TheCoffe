@@ -23,7 +23,6 @@ export const CartProvider = ({ children }) => {
       try {
         setUser(JSON.parse(savedUser));
       } catch (error) {
-        console.error('Error loading user:', error);
         localStorage.removeItem('user');
       }
     }
@@ -45,7 +44,7 @@ export const CartProvider = ({ children }) => {
         const cartItems = await dbGetCart();
         setItems(cartItems);
       } catch (error) {
-        console.error('Error loading cart:', error);
+        // silently fail
       } finally {
         setLoading(false);
       }
@@ -66,7 +65,7 @@ export const CartProvider = ({ children }) => {
       const cartItems = await dbGetCart();
       setItems(cartItems);
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      // silently fail
     }
   };
 
@@ -76,7 +75,7 @@ export const CartProvider = ({ children }) => {
       const cartItems = await dbGetCart();
       setItems(cartItems);
     } catch (error) {
-      console.error('Error removing from cart:', error);
+      // silently fail
     }
   };
 
@@ -101,7 +100,7 @@ export const CartProvider = ({ children }) => {
       const cartItems = await dbGetCart();
       setItems(cartItems);
     } catch (error) {
-      console.error('Error updating quantity:', error);
+      // silently fail
     }
   };
 
@@ -110,7 +109,7 @@ export const CartProvider = ({ children }) => {
       await dbClearCart();
       setItems([]);
     } catch (error) {
-      console.error('Error clearing cart:', error);
+      // silently fail
     }
   };
 
@@ -151,7 +150,6 @@ export const CartProvider = ({ children }) => {
       });
       return order;
     } catch (error) {
-      console.error('Error creating order:', error);
       throw error;
     }
   };

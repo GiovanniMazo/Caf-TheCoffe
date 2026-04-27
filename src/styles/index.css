@@ -73,7 +73,7 @@ p {
 
 /* Hero section */
 /* Hero Section */
-.hero, .page-hero {
+.hero {
   position: relative;
   background-attachment: fixed;
   background-size: cover;
@@ -90,7 +90,7 @@ p {
   box-shadow: var(--shadow-lg);
 }
 
-.hero::before, .page-hero::before {
+.hero::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -252,13 +252,6 @@ p {
   }
 }
 
-.hero__content {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
 .hero__title {
   font-size: 4rem;
   margin-bottom: 2rem;
@@ -269,40 +262,6 @@ p {
   font-size: 1.25rem;
   margin-bottom: 2.5rem;
   color: #f0f0f0;
-}
-
-/* Botones */
-.button {
-  display: inline-block;
-  padding: 1rem 2rem;
-  border-radius: 5px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-}
-
-.button--primary {
-  background-color: #c7974f;
-  color: white;
-}
-
-.button--primary:hover {
-  background-color: #b88a42;
-  transform: translateY(-2px);
-}
-
-.button--secondary {
-  background-color: transparent;
-  border: 2px solid #c7974f;
-  color: #c7974f;
-}
-
-.button--secondary:hover {
-  background-color: #c7974f;
-  color: white;
 }
 
 /* Navegación */
@@ -317,12 +276,6 @@ p {
   transition: all 0.3s ease;
 }
 
-.nav__container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .nav__logo {
   color: #fff;
   font-size: 1.5rem;
@@ -332,10 +285,6 @@ p {
 .nav__menu {
   display: flex;
   gap: 2rem;
-}
-
-.nav__item {
-  list-style: none;
 }
 
 .nav__link {
@@ -350,5 +299,3 @@ p {
 .nav__link:hover {
   background-color: rgba(199, 151, 79, 0.2);
 }
-
-/* Footer styles moved to src/styles/components/Footer.css */
