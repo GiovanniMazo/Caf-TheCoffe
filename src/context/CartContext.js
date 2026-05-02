@@ -7,7 +7,7 @@ import {
   clearCart as dbClearCart,
   createOrder as dbCreateOrder
 } from '../services/db';
-import { registerUser as apiRegisterUser, loginUser as apiLoginUser } from '../services/api';
+import { registerUser as apiRegisterUser, loginUser as apiLoginUser, createOrder as apiCreateOrder } from '../services/api';
 
 const CartContext = createContext();
 
@@ -139,16 +139,39 @@ export const CartProvider = ({ children }) => {
 
   const createOrder = async (orderData) => {
     try {
-      const orderWithUser = {
-        ...orderData,
-        ...(user && { userId: user.id })
-      };
-      const order = await dbCreateOrder({
-        ...orderWithUser,
+      const orderPayload = {
+        cliente: orderData.customer?.name || orderData.nombre || 'Cliente',
+        total: getCartTotal(),
+        userId: user?.id || null,
         items: items,
-        total: getCartTotal()
-      });
-      return order;
+        fecha: new Date().toISOString()
+      };
+
+      // SIEMPRE guardar en localStorage para que el admin pueda verla
+      const savedOrders = JSON.parse(localStorage.getItem('coffeeclub_orders') || '[]');
+      const newOrder = {
+        id: Date.now(),
+        ...orderPayload
+      };
+      savedOrders.unshift(newOrder);
+      localStorage.setItem('coffeeclub_orders', JSON.stringify(savedOrders));
+      console.log('✅ Orden guardada en localStorage:', newOrder);
+
+      // Intentar guardar en PostgreSQL via API
+      try {
+        const response = await apiCreateOrder(orderPayload);
+        console.log('✅ Orden guardada en PostgreSQL');
+        // También guardar en IndexedDB como backup
+        await dbCreateOrder({
+          ...orderData,
+          items: items,
+          total: getCartTotal()
+        });
+        return response;
+      } catch (apiError) {
+        console.warn('⚠️ Backend no disponible. Orden solo en localStorage.');
+        return newOrder;
+      }
     } catch (error) {
       throw error;
     }

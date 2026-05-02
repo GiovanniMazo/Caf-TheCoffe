@@ -6,14 +6,14 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request().query(`
+    const result = await pool.query(`
       SELECT id, nombre, email, mensaje, fecha, leido
-      FROM dbo.Contacto
+      FROM Contacto
       ORDER BY fecha DESC
     `);
-    res.json(result.recordset);
+    res.json(result.rows);
   } catch (error) {
-    console.error('❌ Error al obtener mensajes de contacto:', error);
+    console.error('Error al obtener mensajes de contacto:', error);
     res.status(500).json({ error: 'Error al obtener mensajes de contacto' });
   }
 });
@@ -22,16 +22,17 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('SELECT id, nombre, email, mensaje, fecha, leido FROM dbo.Contacto WHERE id = @id');
+    const result = await pool.query(
+      'SELECT id, nombre, email, mensaje, fecha, leido FROM Contacto WHERE id = $1',
+      [req.params.id]
+    );
     
-    if (result.recordset.length === 0) {
+    if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Mensaje no encontrado' });
     }
-    res.json(result.recordset[0]);
+    res.json(result.rows[0]);
   } catch (error) {
-    console.error('❌ Error al obtener mensaje:', error);
+    console.error('Error al obtener mensaje:', error);
     res.status(500).json({ error: 'Error al obtener mensaje' });
   }
 });
@@ -46,15 +47,14 @@ router.post('/', async (req, res) => {
 
   try {
     const pool = await getPool();
-    await pool.request()
-      .input('nombre', nombre)
-      .input('email', email)
-      .input('mensaje', mensaje)
-      .query('INSERT INTO dbo.Contacto (nombre, email, mensaje, fecha, leido) VALUES (@nombre, @email, @mensaje, GETDATE(), 0)');
+    await pool.query(
+      'INSERT INTO Contacto (nombre, email, mensaje, fecha, leido) VALUES ($1, $2, $3, NOW(), false)',
+      [nombre, email, mensaje]
+    );
     
-    res.json({ mensaje: '✅ Mensaje enviado correctamente' });
+    res.json({ mensaje: 'Mensaje enviado correctamente' });
   } catch (error) {
-    console.error('❌ Error al enviar mensaje:', error);
+    console.error('Error al enviar mensaje:', error);
     res.status(500).json({ error: 'Error al enviar mensaje' });
   }
 });
@@ -63,16 +63,17 @@ router.post('/', async (req, res) => {
 router.put('/:id/read', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('UPDATE dbo.Contacto SET leido = 1 WHERE id = @id');
+    const result = await pool.query(
+      'UPDATE Contacto SET leido = true WHERE id = $1',
+      [req.params.id]
+    );
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Mensaje no encontrado' });
     }
-    res.json({ mensaje: '✅ Mensaje marcado como leído' });
+    res.json({ mensaje: 'Mensaje marcado como leído' });
   } catch (error) {
-    console.error('❌ Error al marcar mensaje:', error);
+    console.error('Error al marcar mensaje:', error);
     res.status(500).json({ error: 'Error al marcar mensaje' });
   }
 });
@@ -81,16 +82,14 @@ router.put('/:id/read', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('DELETE FROM dbo.Contacto WHERE id = @id');
+    const result = await pool.query('DELETE FROM Contacto WHERE id = $1', [req.params.id]);
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Mensaje no encontrado' });
     }
-    res.json({ mensaje: '✅ Mensaje eliminado correctamente' });
+    res.json({ mensaje: 'Mensaje eliminado correctamente' });
   } catch (error) {
-    console.error('❌ Error al eliminar mensaje:', error);
+    console.error('Error al eliminar mensaje:', error);
     res.status(500).json({ error: 'Error al eliminar mensaje' });
   }
 });

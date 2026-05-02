@@ -6,14 +6,14 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request().query(`
+    const result = await pool.query(`
       SELECT id, email, nombre, fecha, activo
-      FROM dbo.Newsletter
+      FROM Newsletter
       ORDER BY fecha DESC
     `);
-    res.json(result.recordset);
+    res.json(result.rows);
   } catch (error) {
-    console.error('❌ Error al obtener suscriptores:', error);
+    console.error('Error al obtener suscriptores:', error);
     res.status(500).json({ error: 'Error al obtener suscriptores' });
   }
 });
@@ -30,22 +30,20 @@ router.post('/', async (req, res) => {
     const pool = await getPool();
     
     // Verificar si el email ya está registrado
-    const existing = await pool.request()
-      .input('email', email)
-      .query('SELECT id FROM dbo.Newsletter WHERE email = @email');
+    const existing = await pool.query('SELECT id FROM Newsletter WHERE email = $1', [email]);
     
-    if (existing.recordset.length > 0) {
+    if (existing.rows.length > 0) {
       return res.status(400).json({ error: 'El email ya está suscrito' });
     }
 
-    await pool.request()
-      .input('email', email)
-      .input('nombre', nombre || '')
-      .query('INSERT INTO dbo.Newsletter (email, nombre, fecha, activo) VALUES (@email, @nombre, GETDATE(), 1)');
+    await pool.query(
+      'INSERT INTO Newsletter (email, nombre, fecha, activo) VALUES ($1, $2, NOW(), true)',
+      [email, nombre || '']
+    );
     
-    res.json({ mensaje: '✅ Suscripción exitosa' });
+    res.json({ mensaje: 'Suscripción exitosa' });
   } catch (error) {
-    console.error('❌ Error al suscribir:', error);
+    console.error('Error al suscribir:', error);
     res.status(500).json({ error: 'Error al suscribir' });
   }
 });
@@ -54,16 +52,14 @@ router.post('/', async (req, res) => {
 router.delete('/:email', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('email', req.params.email)
-      .query('DELETE FROM dbo.Newsletter WHERE email = @email');
+    const result = await pool.query('DELETE FROM Newsletter WHERE email = $1', [req.params.email]);
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Email no encontrado' });
     }
-    res.json({ mensaje: '✅ Suscripción cancelada correctamente' });
+    res.json({ mensaje: 'Suscripción cancelada correctamente' });
   } catch (error) {
-    console.error('❌ Error al cancelar suscripción:', error);
+    console.error('Error al cancelar suscripción:', error);
     res.status(500).json({ error: 'Error al cancelar suscripción' });
   }
 });
@@ -72,16 +68,17 @@ router.delete('/:email', async (req, res) => {
 router.put('/:email/toggle', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('email', req.params.email)
-      .query('UPDATE dbo.Newsletter SET activo = CASE WHEN activo = 1 THEN 0 ELSE 1 END WHERE email = @email');
+    const result = await pool.query(
+      'UPDATE Newsletter SET activo = NOT activo WHERE email = $1',
+      [req.params.email]
+    );
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Email no encontrado' });
     }
-    res.json({ mensaje: '✅ Estado de suscripción actualizado' });
+    res.json({ mensaje: 'Estado de suscripción actualizado' });
   } catch (error) {
-    console.error('❌ Error al actualizar suscripción:', error);
+    console.error('Error al actualizar suscripción:', error);
     res.status(500).json({ error: 'Error al actualizar suscripción' });
   }
 });

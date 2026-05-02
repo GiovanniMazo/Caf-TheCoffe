@@ -58,16 +58,38 @@
   align-items: center;
   gap: 8px;
   background: rgba(255, 255, 255, 0.95);
-  border: 2px solid #c7974f;
-  border-radius: 30px;
-  padding: 4px 4px 4px 14px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 2px solid rgba(199, 151, 79, 0.3);
+  border-radius: 50px;
+  padding: 6px 6px 6px 18px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(44, 24, 16, 0.08);
+  position: relative;
+}
+
+.filter-group::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(199, 151, 79, 0.5), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .filter-group:hover {
-  box-shadow: 0 4px 15px rgba(199, 151, 79, 0.25);
-  border-color: #b1843f;
+  box-shadow: 0 8px 25px rgba(199, 151, 79, 0.3);
+  border-color: #c7974f;
+  transform: translateY(-2px);
+}
+
+.filter-group:hover::before {
+  opacity: 1;
 }
 
 .filter-icon {

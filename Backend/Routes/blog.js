@@ -6,14 +6,14 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request().query(`
+    const result = await pool.query(`
       SELECT id, titulo, contenido, autor, imagen, fecha, categoria
-      FROM dbo.Blog
+      FROM Blog
       ORDER BY fecha DESC
     `);
-    res.json(result.recordset);
+    res.json(result.rows);
   } catch (error) {
-    console.error('❌ Error al obtener posts del blog:', error);
+    console.error('Error al obtener posts del blog:', error);
     res.status(500).json({ error: 'Error al obtener posts del blog' });
   }
 });
@@ -22,16 +22,17 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('SELECT id, titulo, contenido, autor, imagen, fecha, categoria FROM dbo.Blog WHERE id = @id');
+    const result = await pool.query(
+      'SELECT id, titulo, contenido, autor, imagen, fecha, categoria FROM Blog WHERE id = $1',
+      [req.params.id]
+    );
     
-    if (result.recordset.length === 0) {
+    if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Post no encontrado' });
     }
-    res.json(result.recordset[0]);
+    res.json(result.rows[0]);
   } catch (error) {
-    console.error('❌ Error al obtener post:', error);
+    console.error('Error al obtener post:', error);
     res.status(500).json({ error: 'Error al obtener post' });
   }
 });
@@ -46,17 +47,14 @@ router.post('/', async (req, res) => {
 
   try {
     const pool = await getPool();
-    await pool.request()
-      .input('titulo', titulo)
-      .input('contenido', contenido)
-      .input('autor', autor || 'Admin')
-      .input('imagen', imagen || '')
-      .input('categoria', categoria || 'General')
-      .query('INSERT INTO dbo.Blog (titulo, contenido, autor, imagen, categoria, fecha) VALUES (@titulo, @contenido, @autor, @imagen, @categoria, GETDATE())');
+    await pool.query(
+      'INSERT INTO Blog (titulo, contenido, autor, imagen, categoria, fecha) VALUES ($1, $2, $3, $4, $5, NOW())',
+      [titulo, contenido, autor || 'Admin', imagen || '', categoria || 'General']
+    );
     
-    res.json({ mensaje: '✅ Post creado correctamente' });
+    res.json({ mensaje: 'Post creado correctamente' });
   } catch (error) {
-    console.error('❌ Error al crear post:', error);
+    console.error('Error al crear post:', error);
     res.status(500).json({ error: 'Error al crear post' });
   }
 });
@@ -67,21 +65,17 @@ router.put('/:id', async (req, res) => {
   
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .input('titulo', titulo)
-      .input('contenido', contenido)
-      .input('autor', autor || 'Admin')
-      .input('imagen', imagen || '')
-      .input('categoria', categoria || 'General')
-      .query('UPDATE dbo.Blog SET titulo = @titulo, contenido = @contenido, autor = @autor, imagen = @imagen, categoria = @categoria WHERE id = @id');
+    const result = await pool.query(
+      'UPDATE Blog SET titulo = $1, contenido = $2, autor = $3, imagen = $4, categoria = $5 WHERE id = $6',
+      [titulo, contenido, autor || 'Admin', imagen || '', categoria || 'General', req.params.id]
+    );
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Post no encontrado' });
     }
-    res.json({ mensaje: '✅ Post actualizado correctamente' });
+    res.json({ mensaje: 'Post actualizado correctamente' });
   } catch (error) {
-    console.error('❌ Error al actualizar post:', error);
+    console.error('Error al actualizar post:', error);
     res.status(500).json({ error: 'Error al actualizar post' });
   }
 });
@@ -90,16 +84,14 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('DELETE FROM dbo.Blog WHERE id = @id');
+    const result = await pool.query('DELETE FROM Blog WHERE id = $1', [req.params.id]);
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Post no encontrado' });
     }
-    res.json({ mensaje: '✅ Post eliminado correctamente' });
+    res.json({ mensaje: 'Post eliminado correctamente' });
   } catch (error) {
-    console.error('❌ Error al eliminar post:', error);
+    console.error('Error al eliminar post:', error);
     res.status(500).json({ error: 'Error al eliminar post' });
   }
 });

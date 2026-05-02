@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
-import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import Loader from '../components/Loader';
 import { useCart } from '../context/CartContext';
+import { fetchProducts } from '../services/api';
+import { products as localProducts } from '../data/products';
 import { FaFilter, FaSort, FaTh, FaList } from 'react-icons/fa';
 import '../styles/pages/Products.css';
 
@@ -14,14 +15,47 @@ const Products = () => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [lastAddedProduct, setLastAddedProduct] = useState('');
   const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState('');
 
   const { addToCart } = useCart();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 800);
-    return () => clearTimeout(timer);
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchProducts();
+
+        // Si el backend no está disponible, fetchProducts devuelve array vacío
+        if (!data || data.length === 0) {
+          console.warn('⚠️ Backend no disponible o sin productos. Usando productos locales.');
+          setProducts(localProducts);
+          setLoading(false);
+          return;
+        }
+
+        // Mapear campos de PostgreSQL al formato del frontend
+        const mapped = data.map(p => ({
+          id: p.id,
+          name: p.nombre || p.name,
+          description: p.descripcion || p.description,
+          price: Number(p.precio || p.price),
+          image: p.imagen || p.image || '/placeholder-coffee.jpg',
+          category: p.categoria_id ? String(p.categoria_id) : (p.category || 'general'),
+          origin: p.origin || 'Colombia',
+          rating: p.rating || 4.5,
+          reviewCount: p.reviewCount || 0,
+          bestseller: p.bestseller || false
+        }));
+        setProducts(mapped);
+      } catch (err) {
+        console.warn('⚠️ Error cargando productos. Usando locales:', err);
+        setProducts(localProducts);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProducts();
   }, []);
 
   const handleAddToCart = (product) => {
@@ -82,6 +116,12 @@ const Products = () => {
             </button>
           </div>
         </div>
+
+        {error && (
+          <div className="products-error" style={{textAlign: 'center', padding: '2rem', color: '#dc2626'}}>
+            {error}
+          </div>
+        )}
 
         {loading ? (
           <Loader />

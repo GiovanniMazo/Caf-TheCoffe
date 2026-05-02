@@ -31,9 +31,10 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, async () => {
   try {
     await getPool();
-    console.log('✅ Conectado a SQL Server correctamente');
-    console.log(`🚀 Backend CoffeeClub corriendo en http://localhost:${PORT}`);
+    console.log('Conectado a PostgreSQL correctamente');
+    console.log(`Backend CoffeeClub corriendo en http://localhost:${PORT}`);
   } catch (error) {
-    console.error('❌ Error al conectar a SQL Server:', error);
+    console.error('Error al conectar a PostgreSQL:', error);
   }
 });
+

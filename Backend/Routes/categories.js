@@ -6,14 +6,14 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request().query(`
+    const result = await pool.query(`
       SELECT id, nombre, descripcion, imagen
-      FROM dbo.Categorias
+      FROM Categorias
       ORDER BY id ASC
     `);
-    res.json(result.recordset);
+    res.json(result.rows);
   } catch (error) {
-    console.error('❌ Error al obtener categorías:', error);
+    console.error('Error al obtener categorías:', error);
     res.status(500).json({ error: 'Error al obtener categorías' });
   }
 });
@@ -22,16 +22,17 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('SELECT id, nombre, descripcion, imagen FROM dbo.Categorias WHERE id = @id');
+    const result = await pool.query(
+      'SELECT id, nombre, descripcion, imagen FROM Categorias WHERE id = $1',
+      [req.params.id]
+    );
     
-    if (result.recordset.length === 0) {
+    if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Categoría no encontrada' });
     }
-    res.json(result.recordset[0]);
+    res.json(result.rows[0]);
   } catch (error) {
-    console.error('❌ Error al obtener categoría:', error);
+    console.error('Error al obtener categoría:', error);
     res.status(500).json({ error: 'Error al obtener categoría' });
   }
 });
@@ -46,15 +47,14 @@ router.post('/', async (req, res) => {
 
   try {
     const pool = await getPool();
-    await pool.request()
-      .input('nombre', nombre)
-      .input('descripcion', descripcion || '')
-      .input('imagen', imagen || '')
-      .query('INSERT INTO dbo.Categorias (nombre, descripcion, imagen) VALUES (@nombre, @descripcion, @imagen)');
+    await pool.query(
+      'INSERT INTO Categorias (nombre, descripcion, imagen) VALUES ($1, $2, $3)',
+      [nombre, descripcion || '', imagen || '']
+    );
     
-    res.json({ mensaje: '✅ Categoría creada correctamente' });
+    res.json({ mensaje: 'Categoría creada correctamente' });
   } catch (error) {
-    console.error('❌ Error al crear categoría:', error);
+    console.error('Error al crear categoría:', error);
     res.status(500).json({ error: 'Error al crear categoría' });
   }
 });
@@ -65,19 +65,17 @@ router.put('/:id', async (req, res) => {
   
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .input('nombre', nombre)
-      .input('descripcion', descripcion || '')
-      .input('imagen', imagen || '')
-      .query('UPDATE dbo.Categorias SET nombre = @nombre, descripcion = @descripcion, imagen = @imagen WHERE id = @id');
+    const result = await pool.query(
+      'UPDATE Categorias SET nombre = $1, descripcion = $2, imagen = $3 WHERE id = $4',
+      [nombre, descripcion || '', imagen || '', req.params.id]
+    );
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Categoría no encontrada' });
     }
-    res.json({ mensaje: '✅ Categoría actualizada correctamente' });
+    res.json({ mensaje: 'Categoría actualizada correctamente' });
   } catch (error) {
-    console.error('❌ Error al actualizar categoría:', error);
+    console.error('Error al actualizar categoría:', error);
     res.status(500).json({ error: 'Error al actualizar categoría' });
   }
 });
@@ -86,16 +84,14 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('DELETE FROM dbo.Categorias WHERE id = @id');
+    const result = await pool.query('DELETE FROM Categorias WHERE id = $1', [req.params.id]);
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Categoría no encontrada' });
     }
-    res.json({ mensaje: '✅ Categoría eliminada correctamente' });
+    res.json({ mensaje: 'Categoría eliminada correctamente' });
   } catch (error) {
-    console.error('❌ Error al eliminar categoría:', error);
+    console.error('Error al eliminar categoría:', error);
     res.status(500).json({ error: 'Error al eliminar categoría' });
   }
 });

@@ -6,19 +6,14 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request().query(`
+    const result = await pool.query(`
       SELECT id, nombre, email, telefono, direccion, fecha_registro, rol
-      FROM dbo.Usuarios
+      FROM Usuarios
       ORDER BY fecha_registro DESC
     `);
-    // No devolver contraseñas
-    const users = result.recordset.map(user => ({
-      ...user,
-      password: undefined
-    }));
-    res.json(users);
+    res.json(result.rows);
   } catch (error) {
-    console.error('❌ Error al obtener usuarios:', error);
+    console.error('Error al obtener usuarios:', error);
     res.status(500).json({ error: 'Error al obtener usuarios' });
   }
 });
@@ -27,18 +22,17 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('SELECT id, nombre, email, telefono, direccion, fecha_registro, rol FROM dbo.Usuarios WHERE id = @id');
+    const result = await pool.query(
+      'SELECT id, nombre, email, telefono, direccion, fecha_registro, rol FROM Usuarios WHERE id = $1',
+      [req.params.id]
+    );
     
-    if (result.recordset.length === 0) {
+    if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
-    const user = result.recordset[0];
-    user.password = undefined;
-    res.json(user);
+    res.json(result.rows[0]);
   } catch (error) {
-    console.error('❌ Error al obtener usuario:', error);
+    console.error('Error al obtener usuario:', error);
     res.status(500).json({ error: 'Error al obtener usuario' });
   }
 });
@@ -55,26 +49,20 @@ router.post('/', async (req, res) => {
     const pool = await getPool();
     
     // Verificar si el email ya existe
-    const existing = await pool.request()
-      .input('email', email)
-      .query('SELECT id FROM dbo.Usuarios WHERE email = @email');
+    const existing = await pool.query('SELECT id FROM Usuarios WHERE email = $1', [email]);
     
-    if (existing.recordset.length > 0) {
+    if (existing.rows.length > 0) {
       return res.status(400).json({ error: 'El email ya está registrado' });
     }
 
-    await pool.request()
-      .input('nombre', nombre)
-      .input('email', email)
-      .input('password', password) // En producción, usar hash: bcrypt
-      .input('telefono', telefono || '')
-      .input('direccion', direccion || '')
-      .input('rol', 'cliente')
-      .query('INSERT INTO dbo.Usuarios (nombre, email, password, telefono, direccion, rol, fecha_registro) VALUES (@nombre, @email, @password, @telefono, @direccion, @rol, GETDATE())');
+    await pool.query(
+      'INSERT INTO Usuarios (nombre, email, password, telefono, direccion, rol, fecha_registro) VALUES ($1, $2, $3, $4, $5, $6, NOW())',
+      [nombre, email, password, telefono || '', direccion || '', 'cliente']
+    );
     
-    res.json({ mensaje: '✅ Usuario registrado correctamente' });
+    res.json({ mensaje: 'Usuario registrado correctamente' });
   } catch (error) {
-    console.error('❌ Error al registrar usuario:', error);
+    console.error('Error al registrar usuario:', error);
     res.status(500).json({ error: 'Error al registrar usuario' });
   }
 });
@@ -91,38 +79,61 @@ router.post('/login', async (req, res) => {
     const pool = await getPool();
     
     // Verificar si el email existe
-    const emailCheck = await pool.request()
-      .input('email', email)
-      .query('SELECT id FROM dbo.Usuarios WHERE email = @email');
+    const emailCheck = await pool.query('SELECT id FROM Usuarios WHERE email = $1', [email]);
     
-    if (emailCheck.recordset.length === 0) {
+    if (emailCheck.rows.length === 0) {
       return res.status(401).json({ error: 'Este email no está registrado. Por favor crea una cuenta primero.' });
     }
     
     // Verificar credenciales
-    const result = await pool.request()
-      .input('email', email)
-      .input('password', password)
-      .query('SELECT id, nombre, email, telefono, direccion, rol FROM dbo.Usuarios WHERE email = @email AND password = @password');
+    const result = await pool.query(
+      'SELECT id, nombre, email, telefono, direccion, rol FROM Usuarios WHERE email = $1 AND password = $2',
+      [email, password]
+    );
     
-    if (result.recordset.length === 0) {
+    if (result.rows.length === 0) {
       return res.status(401).json({ error: 'Contraseña incorrecta' });
     }
     
-    const user = result.recordset[0];
+    const user = result.rows[0];
     res.json({ 
-      mensaje: '✅ Login exitoso',
-      user: {
-        id: user.id,
-        nombre: user.nombre,
-        email: user.email,
-        telefono: user.telefono,
-        direccion: user.direccion,
-        rol: user.rol
-      }
+      mensaje: 'Login exitoso',
+      user
     });
   } catch (error) {
-    console.error('❌ Error al iniciar sesión:', error);
+    console.error('Error al iniciar sesión:', error);
+    res.status(500).json({ error: 'Error al iniciar sesión' });
+  }
+});
+
+// Login de administrador
+router.post('/admin/login', async (req, res) => {
+  const { email, password } = req.body;
+  
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email y contraseña son requeridos' });
+  }
+
+  try {
+    const pool = await getPool();
+    
+    // Verificar credenciales y que sea admin
+    const result = await pool.query(
+      "SELECT id, nombre, email, telefono, direccion, rol FROM Usuarios WHERE email = $1 AND password = $2 AND rol = 'admin'",
+      [email, password]
+    );
+    
+    if (result.rows.length === 0) {
+      return res.status(401).json({ error: 'Credenciales de administrador incorrectas.' });
+    }
+    
+    const user = result.rows[0];
+    res.json({ 
+      mensaje: 'Login de administrador exitoso',
+      user
+    });
+  } catch (error) {
+    console.error('Error al iniciar sesión de admin:', error);
     res.status(500).json({ error: 'Error al iniciar sesión' });
   }
 });
@@ -133,21 +144,17 @@ router.put('/:id', async (req, res) => {
   
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .input('nombre', nombre)
-      .input('email', email)
-      .input('telefono', telefono || '')
-      .input('direccion', direccion || '')
-      .input('rol', rol || 'cliente')
-      .query('UPDATE dbo.Usuarios SET nombre = @nombre, email = @email, telefono = @telefono, direccion = @direccion, rol = @rol WHERE id = @id');
+    const result = await pool.query(
+      'UPDATE Usuarios SET nombre = $1, email = $2, telefono = $3, direccion = $4, rol = $5 WHERE id = $6',
+      [nombre, email, telefono || '', direccion || '', rol || 'cliente', req.params.id]
+    );
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
-    res.json({ mensaje: '✅ Usuario actualizado correctamente' });
+    res.json({ mensaje: 'Usuario actualizado correctamente' });
   } catch (error) {
-    console.error('❌ Error al actualizar usuario:', error);
+    console.error('Error al actualizar usuario:', error);
     res.status(500).json({ error: 'Error al actualizar usuario' });
   }
 });
@@ -156,16 +163,14 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('DELETE FROM dbo.Usuarios WHERE id = @id');
+    const result = await pool.query('DELETE FROM Usuarios WHERE id = $1', [req.params.id]);
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
-    res.json({ mensaje: '✅ Usuario eliminado correctamente' });
+    res.json({ mensaje: 'Usuario eliminado correctamente' });
   } catch (error) {
-    console.error('❌ Error al eliminar usuario:', error);
+    console.error('Error al eliminar usuario:', error);
     res.status(500).json({ error: 'Error al eliminar usuario' });
   }
 });

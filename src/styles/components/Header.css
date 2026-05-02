@@ -269,6 +269,27 @@
   font-weight: 600;
 }
 
+/* Admin link */
+.nav__link--admin {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #d4a85a !important;
+  font-weight: 600;
+}
+
+.nav__link--admin .admin-icon {
+  font-size: 1rem;
+}
+
+.nav__link--admin:hover {
+  color: #e8c478 !important;
+}
+
+.nav__link--admin::after {
+  background: linear-gradient(90deg, transparent, #d4a85a, transparent);
+}
+
 /* CTA - Botón destacado mejorado */
 .nav__link--cta {
   background: linear-gradient(135deg, #d4a85a 0%, #b88a42 100%);

@@ -6,14 +6,14 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request().query(`
+    const result = await pool.query(`
       SELECT id, titulo, descripcion, ingredientes, instrucciones, tiempo_preparacion, dificultad, imagen, fecha
-      FROM dbo.Recetas
+      FROM Recetas
       ORDER BY fecha DESC
     `);
-    res.json(result.recordset);
+    res.json(result.rows);
   } catch (error) {
-    console.error('❌ Error al obtener recetas:', error);
+    console.error('Error al obtener recetas:', error);
     res.status(500).json({ error: 'Error al obtener recetas' });
   }
 });
@@ -22,16 +22,17 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('SELECT id, titulo, descripcion, ingredientes, instrucciones, tiempo_preparacion, dificultad, imagen, fecha FROM dbo.Recetas WHERE id = @id');
+    const result = await pool.query(
+      'SELECT id, titulo, descripcion, ingredientes, instrucciones, tiempo_preparacion, dificultad, imagen, fecha FROM Recetas WHERE id = $1',
+      [req.params.id]
+    );
     
-    if (result.recordset.length === 0) {
+    if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Receta no encontrada' });
     }
-    res.json(result.recordset[0]);
+    res.json(result.rows[0]);
   } catch (error) {
-    console.error('❌ Error al obtener receta:', error);
+    console.error('Error al obtener receta:', error);
     res.status(500).json({ error: 'Error al obtener receta' });
   }
 });
@@ -46,19 +47,14 @@ router.post('/', async (req, res) => {
 
   try {
     const pool = await getPool();
-    await pool.request()
-      .input('titulo', titulo)
-      .input('descripcion', descripcion || '')
-      .input('ingredientes', ingredientes || '')
-      .input('instrucciones', instrucciones)
-      .input('tiempo_preparacion', tiempo_preparacion || 0)
-      .input('dificultad', dificultad || 'Fácil')
-      .input('imagen', imagen || '')
-      .query('INSERT INTO dbo.Recetas (titulo, descripcion, ingredientes, instrucciones, tiempo_preparacion, dificultad, imagen, fecha) VALUES (@titulo, @descripcion, @ingredientes, @instrucciones, @tiempo_preparacion, @dificultad, @imagen, GETDATE())');
+    await pool.query(
+      'INSERT INTO Recetas (titulo, descripcion, ingredientes, instrucciones, tiempo_preparacion, dificultad, imagen, fecha) VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())',
+      [titulo, descripcion || '', ingredientes || '', instrucciones, tiempo_preparacion || 0, dificultad || 'Fácil', imagen || '']
+    );
     
-    res.json({ mensaje: '✅ Receta creada correctamente' });
+    res.json({ mensaje: 'Receta creada correctamente' });
   } catch (error) {
-    console.error('❌ Error al crear receta:', error);
+    console.error('Error al crear receta:', error);
     res.status(500).json({ error: 'Error al crear receta' });
   }
 });
@@ -69,23 +65,17 @@ router.put('/:id', async (req, res) => {
   
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .input('titulo', titulo)
-      .input('descripcion', descripcion || '')
-      .input('ingredientes', ingredientes || '')
-      .input('instrucciones', instrucciones)
-      .input('tiempo_preparacion', tiempo_preparacion || 0)
-      .input('dificultad', dificultad || 'Fácil')
-      .input('imagen', imagen || '')
-      .query('UPDATE dbo.Recetas SET titulo = @titulo, descripcion = @descripcion, ingredientes = @ingredientes, instrucciones = @instrucciones, tiempo_preparacion = @tiempo_preparacion, dificultad = @dificultad, imagen = @imagen WHERE id = @id');
+    const result = await pool.query(
+      'UPDATE Recetas SET titulo = $1, descripcion = $2, ingredientes = $3, instrucciones = $4, tiempo_preparacion = $5, dificultad = $6, imagen = $7 WHERE id = $8',
+      [titulo, descripcion || '', ingredientes || '', instrucciones, tiempo_preparacion || 0, dificultad || 'Fácil', imagen || '', req.params.id]
+    );
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Receta no encontrada' });
     }
-    res.json({ mensaje: '✅ Receta actualizada correctamente' });
+    res.json({ mensaje: 'Receta actualizada correctamente' });
   } catch (error) {
-    console.error('❌ Error al actualizar receta:', error);
+    console.error('Error al actualizar receta:', error);
     res.status(500).json({ error: 'Error al actualizar receta' });
   }
 });
@@ -94,16 +84,14 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('DELETE FROM dbo.Recetas WHERE id = @id');
+    const result = await pool.query('DELETE FROM Recetas WHERE id = $1', [req.params.id]);
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Receta no encontrada' });
     }
-    res.json({ mensaje: '✅ Receta eliminada correctamente' });
+    res.json({ mensaje: 'Receta eliminada correctamente' });
   } catch (error) {
-    console.error('❌ Error al eliminar receta:', error);
+    console.error('Error al eliminar receta:', error);
     res.status(500).json({ error: 'Error al eliminar receta' });
   }
 });
