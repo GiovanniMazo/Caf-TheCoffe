@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { FaCoffee, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
+import { useAdmin } from "../context/AdminContext";
+import { FaCoffee, FaShoppingCart, FaBars, FaTimes, FaCog } from "react-icons/fa";
 import "../styles/components/Header.css";
 
 export default function Header({ currentPath = "/" }) {
@@ -9,6 +10,7 @@ export default function Header({ currentPath = "/" }) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const { getItemCount } = useCart();
+  const { isAdmin } = useAdmin();
   const [cartBounce, setCartBounce] = useState(false);
   const itemCount = getItemCount();
 
@@ -87,6 +89,12 @@ export default function Header({ currentPath = "/" }) {
             </NavLink>
           </li>
 
+          <li>
+            <NavLink to="/admin/login" className="nav__link nav__link--admin" onClick={closeMenu}>
+              <FaCog className="admin-icon" />
+              {isAdmin() ? 'Panel Admin' : 'Admin'}
+            </NavLink>
+          </li>
           <li>
             <NavLink to="/checkout" className="nav__link nav__link--cta" onClick={closeMenu}>
               Ordenar ahora

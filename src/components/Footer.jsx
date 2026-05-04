@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import useNewsletter from '../hooks/useNewsletter';
-import { FaWhatsapp, FaTelegram, FaEnvelope } from 'react-icons/fa';
+import { FaWhatsapp, FaTelegram, FaEnvelope, FaLock } from 'react-icons/fa';
 import '../styles/components/Footer.css';
 
 const Footer = () => {
@@ -49,8 +50,12 @@ const Footer = () => {
       </div>
 
       <div className="footer__bottom">
-        <div className="container">
+        <div className="container footer__bottom-content">
           <p>© {new Date().getFullYear()} Gio Todos los derechos reservados.</p>
+          <Link to="/admin/login" className="footer__admin-link">
+            <FaLock />
+            Acceso Administrador
+          </Link>
         </div>
       </div>
     </footer>

@@ -90,7 +90,9 @@ export default function Checkout() {
         status: "pending",
       });
 
-      setOrderId(order);
+      // order puede ser un objeto (orden completa) o un ID
+      const orderIdValue = order?.id || order;
+      setOrderId(orderIdValue);
       setOrderSuccess(true);
       clearCart();
     } catch (error) {

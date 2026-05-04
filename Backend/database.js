@@ -1,20 +1,29 @@
-import sql from 'mssql/msnodesqlv8.js';
+import pkg from 'pg';
+const { Pool } = pkg;
 
 const dbConfig = {
-  server: 'SANTAELENA\\lrendon', 
-  database: 'CoffeeClub',
-  driver: 'msnodesqlv8',
-  options: {
-    trustedConnection: true
-  }
+  host: process.env.DB_HOST || 'localhost',
+  port: process.env.DB_PORT || 5432,
+  database: process.env.DB_NAME || 'coffeeclub',
+  user: process.env.DB_USER || 'postgres',
+  password: process.env.DB_PASSWORD || 'postgres',
 };
 
-let pool;
+const pool = new Pool(dbConfig);
+
+pool.on('error', (err) => {
+  console.error('❌ Error inesperado en el pool de PostgreSQL:', err);
+});
 
 export async function getPool() {
-  if (!pool) {
-    pool = await sql.connect(dbConfig);
-    console.log('🔌 Conexión SQL Server establecida con CoffeeClub');
+  try {
+    await pool.query('SELECT 1');
+    return pool;
+  } catch (error) {
+    console.error('❌ Error al conectar a PostgreSQL:', error.message);
+    throw error;
   }
-  return pool;
 }
+
+export default pool;
+

@@ -6,14 +6,14 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request().query(`
+    const result = await pool.query(`
       SELECT id, nombre, comentario, calificacion, fecha, imagen
-      FROM dbo.Testimonios
+      FROM Testimonios
       ORDER BY fecha DESC
     `);
-    res.json(result.recordset);
+    res.json(result.rows);
   } catch (error) {
-    console.error('❌ Error al obtener testimonios:', error);
+    console.error('Error al obtener testimonios:', error);
     res.status(500).json({ error: 'Error al obtener testimonios' });
   }
 });
@@ -22,16 +22,17 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('SELECT id, nombre, comentario, calificacion, fecha, imagen FROM dbo.Testimonios WHERE id = @id');
+    const result = await pool.query(
+      'SELECT id, nombre, comentario, calificacion, fecha, imagen FROM Testimonios WHERE id = $1',
+      [req.params.id]
+    );
     
-    if (result.recordset.length === 0) {
+    if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Testimonio no encontrado' });
     }
-    res.json(result.recordset[0]);
+    res.json(result.rows[0]);
   } catch (error) {
-    console.error('❌ Error al obtener testimonio:', error);
+    console.error('Error al obtener testimonio:', error);
     res.status(500).json({ error: 'Error al obtener testimonio' });
   }
 });
@@ -46,16 +47,14 @@ router.post('/', async (req, res) => {
 
   try {
     const pool = await getPool();
-    await pool.request()
-      .input('nombre', nombre)
-      .input('comentario', comentario)
-      .input('calificacion', calificacion)
-      .input('imagen', imagen || '')
-      .query('INSERT INTO dbo.Testimonios (nombre, comentario, calificacion, imagen, fecha) VALUES (@nombre, @comentario, @calificacion, @imagen, GETDATE())');
+    await pool.query(
+      'INSERT INTO Testimonios (nombre, comentario, calificacion, imagen, fecha) VALUES ($1, $2, $3, $4, NOW())',
+      [nombre, comentario, calificacion, imagen || '']
+    );
     
-    res.json({ mensaje: '✅ Testimonio creado correctamente' });
+    res.json({ mensaje: 'Testimonio creado correctamente' });
   } catch (error) {
-    console.error('❌ Error al crear testimonio:', error);
+    console.error('Error al crear testimonio:', error);
     res.status(500).json({ error: 'Error al crear testimonio' });
   }
 });
@@ -66,20 +65,17 @@ router.put('/:id', async (req, res) => {
   
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .input('nombre', nombre)
-      .input('comentario', comentario)
-      .input('calificacion', calificacion)
-      .input('imagen', imagen || '')
-      .query('UPDATE dbo.Testimonios SET nombre = @nombre, comentario = @comentario, calificacion = @calificacion, imagen = @imagen WHERE id = @id');
+    const result = await pool.query(
+      'UPDATE Testimonios SET nombre = $1, comentario = $2, calificacion = $3, imagen = $4 WHERE id = $5',
+      [nombre, comentario, calificacion, imagen || '', req.params.id]
+    );
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Testimonio no encontrado' });
     }
-    res.json({ mensaje: '✅ Testimonio actualizado correctamente' });
+    res.json({ mensaje: 'Testimonio actualizado correctamente' });
   } catch (error) {
-    console.error('❌ Error al actualizar testimonio:', error);
+    console.error('Error al actualizar testimonio:', error);
     res.status(500).json({ error: 'Error al actualizar testimonio' });
   }
 });
@@ -88,16 +84,14 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', req.params.id)
-      .query('DELETE FROM dbo.Testimonios WHERE id = @id');
+    const result = await pool.query('DELETE FROM Testimonios WHERE id = $1', [req.params.id]);
     
-    if (result.rowsAffected[0] === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Testimonio no encontrado' });
     }
-    res.json({ mensaje: '✅ Testimonio eliminado correctamente' });
+    res.json({ mensaje: 'Testimonio eliminado correctamente' });
   } catch (error) {
-    console.error('❌ Error al eliminar testimonio:', error);
+    console.error('Error al eliminar testimonio:', error);
     res.status(500).json({ error: 'Error al eliminar testimonio' });
   }
 });
