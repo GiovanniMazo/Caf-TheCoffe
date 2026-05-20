@@ -2,15 +2,7 @@ import axios from 'axios';
 
 const API_URL = "http://localhost:4000/api";
 
-// Check if backend is available
-const isBackendAvailable = async () => {
-  try {
-    await axios.get(`${API_URL}/products`, { timeout: 3000 });
-    return true;
-  } catch {
-    return false;
-  }
-};
+
 
 // Local fallback for demo/development when backend is down
 const localUsersKey = 'coffeeclub_local_users';

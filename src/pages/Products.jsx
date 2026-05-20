@@ -16,7 +16,8 @@ const Products = () => {
   const [lastAddedProduct, setLastAddedProduct] = useState('');
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
-  const [error, setError] = useState('');
+  const [error] = useState('');
+
 
   const { addToCart } = useCart();
 
